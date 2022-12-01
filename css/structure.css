@@ -1,9 +1,153 @@
-nav {
-  background-color: red;
+* {
+  box-sizing: border-box;
 }
+body {
+  margin: 0;
+}
+header {
+  position: fixed;
+  top: 0;
+  margin: 0;
+  padding: 20px;
+  background-color: red;
+  width: 100%;
+  height: 75px;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+}
+
 main {
+  position: fixed;
+  top: 75px;
+  bottom: 75px;
+  margin: 0;
   background-color: lightgray;
+  width: 100%;
 }
-footer {
+main p {
+  margin: 0;
+}
+
+nav {
+  width: 100%;
   background-color: red;
+  position: fixed;
+  bottom: 0;
+}
+.nav-bar-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-element {
+  flex: 1;
+  min-height: 75px;
+}
+.nav-element a {
+  width: 100%;
+  height: 75px;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-element a:hover {
+  text-decoration: none;
+  color: white;
+}
+.nav-element i {
+  font-size: 2em;
+}
+@media only screen and (min-width: 800px) {
+  .content {
+    width: 800px;
+    margin: auto;
+  }
+  .nav-bar-list {
+    width: 800px;
+    margin: auto;
+  }
+
+}
+
+.footer {
+  background-color: red;
+  flex: 1;
+  min-height: 75px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.content {
+
+  max-width: 340px;
+  min-height: 360px;
+  transform: translate(0%, 35%);
+  padding: 30px 0;
+  margin: auto;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+  background: #ebebeb;
+  text-align: center;
+
+}
+
+form {
+  margin: 0 30px;
+}
+
+input[type=text], input[type=password] {
+  width: calc(100% - 57px);
+  height: 36px;
+  margin: 13px 0 0 -5px;
+  padding-left: 10px;
+  border-radius: 0 5px 5px 0;
+  border: solid 1px #cbc9c9;
+  box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+  background: #fff;
+}
+
+#user_icon {
+  display: inline-block;
+  padding: 9.3px 15px;
+  box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+  background: #BEA6A0;
+  color: #fff;
+  text-align: center;
+}
+
+#pass_icon {
+  display: inline-block;
+  padding: 9.3px 15px;
+  box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+  background: #BEA6A0;
+  color: #fff;
+  text-align: center;
+}
+
+#login_button {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: none;
+  background: #BEA6A0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+#login_button:hover {
+  background: #26a9e0;
+}
+
+.content h1 {
+  font-family: Georgia, serif;
 }
