@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="js/frontpage.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -20,8 +21,17 @@
       </header>
       <main>
         <div class="content">
+            <section class="info">
+                <a href="profile.html" class="link">
+                    <div class="profile-content">
+                        <img src="images/avatar.jpeg" alt="Profile picture" class="profile-pic">
+                        <h2 class="profile-name">Matti Meikäläinen</h2>
+                    </div>
+                </a>
+            </section>
           <section class="swipe">
-            <!--<img class="car-image" src="images/car1.jpeg" alt="car image" />-->
+            <img class="card1 car-image" src="images/car2.jpeg" alt="car image"></img>
+            <img class="card2 car-image behind" src="images/car1.jpeg" alt="car image"></img>
           </section>
           <section class="rate">
             <div class="button-container">
@@ -33,18 +43,19 @@
               </button>
             </div>
           </section>
+          
         </div>
       </main>
       <nav class="nav-bar">
         <ul class="nav-bar-list">
           <li class="nav-element">
-            <a href=""><i class="fa-solid fa-house-chimney"></i></a>
+            <a href="frontPage.html"><i class="fa-solid fa-house-chimney"></i></a>
           </li>
           <li class="nav-element">
-            <a href=""><i class="fa-solid fa-star"></i></a>
+            <a href="ranking.html"><i class="fa-solid fa-star"></i></a>
           </li>
           <li class="nav-element">
-            <a href=""><i class="fa-solid fa-user"></i></a>
+            <a href="profile.html"><i class="fa-solid fa-user"></i></a>
           </li>
         </ul>
       </nav>

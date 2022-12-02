@@ -2,21 +2,52 @@
   height: 100%;
   position: relative;
 }
+/*---car card-----------------------------------------------*/
 .swipe {
-  background-image: url("../images/car1.jpeg");
   height: 100%;
   width: 100%;
+}
+.car-image {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  /*background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-  background-position-x: center;
+  background-size: cover;*/
 }
+.card1 {
+  transition: 1s;
+  z-index: 1;
+  border-radius: 15px;
+}
+.card1:hover {
+  transform: translateX(50px);
+}
+.card2 {
+  transition: 1s;
+}
+.card2.behind {
+  filter: blur(100px);
+  -webkit-filter: blur(2px);
+}
+/*---Rating car-----------------------------------------------*/
 .rate {
   position: absolute;
   bottom: 15px;
   width: 100%;
   height: 75px;
+  z-index: 2;
+}
+.liked {
+  transform: translateX(120vw) rotate(30deg);
+  opacity: 0;
+}
+.disliked {
+  transform: translateX(-120vw) rotate(-30deg);
+  opacity: 0;
 }
 .car-button {
   width: 75px;
@@ -49,4 +80,62 @@
   position: absolute;
   right: 50px;
   color: rgb(223, 78, 0);
+}
+/*---Info-----------------------------------------------*/
+.link {
+  position: relative;
+  width: 100%;
+  height: 75px;
+}
+.profile-pic {
+  height: 75px;
+  width: 75px;
+  z-index: 2;
+  border-radius: 50%;
+  object-fit: cover;
+  border-width: 4px;
+  border-color: rgba(0, 0, 0, 0.52);
+  border-style: solid;
+}
+.profile-content {
+  position: absolute;
+  left: 20px;
+  top: 30px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+.profile-name {
+  margin: 0;
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
+  white-space: nowrap;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+@media only screen and (max-width: 360px) {
+  #likeButton {
+    right: 20px;
+  }
+  #dislikeButton {
+    left: 20px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  #likeButton {
+    right: 100px;
+  }
+  #dislikeButton {
+    left: 100px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #likeButton {
+    right: 150px;
+  }
+  #dislikeButton {
+    left: 150px;
+  }
 }
