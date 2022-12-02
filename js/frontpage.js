@@ -1,5 +1,6 @@
 "use strict";
 const swipe = document.querySelector(".swipe");
+const profileName = document.querySelector("#profileName");
 let isSwiping = false;
 
 document.querySelector("#likeButton").addEventListener("click", () => {
@@ -10,6 +11,7 @@ document.querySelector("#dislikeButton").addEventListener("click", () => {
   rateCar(false);
   isSwiping = true;
 });
+
 function rateCar(status) {
   if (isSwiping) {
     return;
@@ -23,13 +25,9 @@ function rateCar(status) {
     }
     card1.classList.add("liked");
     card2.classList.remove("behind");
+    profileName.innerHTML = "Uus username";
     setTimeout(() => {
-      console.log("delete element");
-      card1.remove();
-      card2.classList.add("card1");
-      card2.classList.remove("card2");
-      createCarTwo();
-      isSwiping = false;
+      deleteOldCar(card1, card2);
     }, 1000);
     return;
   }
@@ -39,16 +37,19 @@ function rateCar(status) {
   }
   card1.classList.add("disliked");
   card2.classList.remove("behind");
+  profileName.innerHTML = "Uus username";
   setTimeout(() => {
-    console.log("delete element");
-    card1.remove();
-    card2.classList.add("card1");
-    card2.classList.remove("card2");
-    createCarTwo();
-    isSwiping = false;
+    deleteOldCar(card1, card2);
   }, 1000);
 }
-
+function deleteOldCar(card1, card2) {
+  console.log("delete element");
+  card1.remove();
+  card2.classList.add("card1");
+  card2.classList.remove("card2");
+  createCarTwo();
+  isSwiping = false;
+}
 function createCarTwo() {
   const newCarCard = document.createElement("img");
   newCarCard.src = "images/car2.jpeg";
