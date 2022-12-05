@@ -1,3 +1,7 @@
+@font-face {
+  font-family: raceFont;
+  src: url("../fonts/FjallaOne-Regular.ttf");
+}
 .content {
   height: 100%;
   position: relative;
@@ -60,8 +64,9 @@
   -webkit-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.52);
   -moz-box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.52);
 }
+.car-button:checked,
 .car-button:active {
-  background-color: rgb(177, 25, 25);
+  background-color: #bea6a0;
 }
 .car-button i {
   font-size: 2.25em;
@@ -74,12 +79,12 @@
 #dislikeButton {
   position: absolute;
   left: 50px;
-  color: rgb(145, 34, 101);
+  color: #56423d;
 }
 #likeButton {
   position: absolute;
   right: 50px;
-  color: rgb(223, 78, 0);
+  color: #e9190f;
 }
 /*---Info-----------------------------------------------*/
 .link {
@@ -102,18 +107,23 @@
   left: 20px;
   top: 30px;
   z-index: 2;
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
 }
 .profile-name {
   margin: 0;
   font-size: 1.5em;
+  font-family: raceFont, sans-serif;
+  letter-spacing: 0.06em;
   text-decoration: none;
   color: white;
   margin-left: 10px;
   white-space: nowrap;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
+}
+.profile-desc {
+  margin: 0;
 }
 @media only screen and (max-width: 360px) {
   #likeButton {

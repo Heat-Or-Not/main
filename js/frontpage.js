@@ -16,8 +16,10 @@ function rateCar(status) {
   if (isSwiping) {
     return;
   }
+
   const card1 = document.querySelector(".card1");
   const card2 = document.querySelector(".card2");
+
   if (status) {
     console.log("like");
     if (card1.classList.contains("disliked")) {
@@ -31,6 +33,7 @@ function rateCar(status) {
     }, 1000);
     return;
   }
+
   console.log("dislike");
   if (card1.classList.contains("liked")) {
     card1.classList.remove("liked");
