@@ -4,21 +4,80 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>Heat or not</title>
+    <link rel="stylesheet" href="css/structure.css" />
+    <link rel="stylesheet" href="css/profile.css" />
+    <script
+            src="https://kit.fontawesome.com/c02d3fc986.js"
+            crossorigin="anonymous"
+            defer
+    ></script>
+    <script src="js/frontpage.js" defer></script>
 </head>
 <body>
-<main>
+<div class="container">
     <header>
-        <h1>Test</h1>
+        <div class="header-container">
+            <h1><strong>Heat</strong> or not</h1>
+        </div>
+        <hr>
     </header>
+    <main>
+        <div class="content">
+            <div id="profile">
+                <img id="pic" src="images/car2.jpeg" alt="profile_icon">
+            </div>
+            <div class="userinfo">
+                <div id="name">
+                    <h2>Matti Meikäläinen</h2>
+                </div>
+                <div class="user_email">
+                    <h2>matti.meikalainen@gmail.com</h2>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2 id="submitCar">Submit your Car</h2>
 
-    <div>
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="/auth/logout">Logout</a></li>
-    </ul>
-    </div>
+        <div class="carupload">
+            <form id="carSubmit">
+                <label for="cars">Choose a car:</label>
+                <select name="cars" id="cars">
+                    <option value="volvo">Volvo</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option>
+                    <option value="bmw">BMW</option>
+                </select>
+                <hr>
+                <label>
+                    <textarea rows="4" cols="50" name="comment" form="carSubmit">Write Description of the car</textarea>
+                </label>
 
-</main>
+                <label> <input type="file" id="myFile" name="filename"> </label>
+                <button id="login_button" type="submit" >Submit</button>
+
+            </form>
+        </div>
+
+    </main>
+    <nav class="nav-bar">
+        <ul class="nav-bar-list">
+            <li class="nav-element">
+                <a href="frontpage.html"><i class="fa-solid fa-house-chimney"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="ranking.html"><i class="fa-solid fa-star"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="profile.html"><i class="fa-solid fa-user"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="/auth/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>
