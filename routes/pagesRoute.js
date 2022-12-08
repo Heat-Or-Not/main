@@ -17,5 +17,6 @@ router.get('/front', authController.isLoggedIn, (req, res) => {
     } else {
         res.sendFile("login.html", { root: './public/' });
     }
-})
+});
+
 module.exports = router;

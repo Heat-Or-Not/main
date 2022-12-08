@@ -4,10 +4,12 @@ const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 const pool = require('../database/db');
 let alert = require('alert');
+let username;
+
 
 exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, name } = req.body;
         if (!email || !password) {
             alert("Fill missing fields");
             console.log("Missing email or password");
@@ -23,7 +25,7 @@ exports.login = async (req, res) => {
 
             } else {
                 const id = results[0].id;
-
+                username = results[0].name;
                 const token = jwt.sign({ id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 });
@@ -36,14 +38,16 @@ exports.login = async (req, res) => {
                     ),
                     httpOnly: true
                 }
-                res.cookie('userSave', token, cookieOptions);
+                res.cookie('token', token, cookieOptions);
                 res.status(200).redirect("/front");
+                console.log("LOGGED IN AS = " + username) //////////////////
             }
         })
     } catch (err) {
         console.log(err);
     }
 }
+
 exports.register = (req, res) => {
     console.log(req.body);
     const { name, email, password, passwordConfirm } = req.body;
@@ -80,10 +84,10 @@ exports.register = (req, res) => {
 }
 
 exports.isLoggedIn = async (req, res, next) => {
-    if (req.cookies.userSave) {
+    if (req.cookies.token) {
         try {
             // 1. Verify the token
-            const decoded = await promisify(jwt.verify)(req.cookies.userSave,
+            const decoded = await promisify(jwt.verify)(req.cookies.token,
                 process.env.JWT_SECRET
             );
             console.log(decoded);
@@ -106,9 +110,10 @@ exports.isLoggedIn = async (req, res, next) => {
     }
 }
 exports.logout = (req, res) => {
-    res.cookie('userSave', 'logout', {
+    res.cookie('token', 'logout', {
         expires: new Date(Date.now() + 2 * 1000),
         httpOnly: true
     });
     res.status(200).redirect("/");
 }
+
