@@ -3,22 +3,24 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 const pool = require('../database/db');
+let alert = require('alert');
 
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
+            alert("Fill missing fields");
             console.log("Missing email or password");
-            return res.status(400).sendFile(__dirname + "/login.html", {
-            })
+            return res.redirect('/login') ;
         }
 
         pool.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
             console.log(results);
             if (!results || !await bcrypt.compare(password, results[0].password)) {
+                alert("Wrong password");
                 console.log("Wrong PAss");
-                res.status(401).sendFile(__dirname + '/login.html', {
-                })
+                return res.redirect('/login') ;
+
             } else {
                 const id = results[0].id;
 
@@ -51,13 +53,12 @@ exports.register = (req, res) => {
         } else {
             if (results.length > 0) {
                 console.log("Sposti varattu");
-                  return res.sendFile(__dirname + "/register", {
-                })
+                alert("This email is already in use")
+                return res.redirect('/register') ;
             } else if (password != passwordConfirm) {
+                alert("Passwords do not match!")
                 console.log("Passwords do not match !");
-                return res.sendFile(__dirname + "/register", {
-                });
-
+                return res.redirect('/register') ;
             }
         }
 
@@ -73,8 +74,9 @@ exports.register = (req, res) => {
             }
         })
         console.log("User succesfully created");
+        res.redirect('/login');
     })
-    res.redirect('/login');
+
 }
 
 exports.isLoggedIn = async (req, res, next) => {
