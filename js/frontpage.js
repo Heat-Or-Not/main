@@ -1,6 +1,7 @@
 "use strict";
 const swipe = document.querySelector(".swipe");
 const profileName = document.querySelector("#profileName");
+const profileDesc = document.querySelector("#profileDesc");
 let isSwiping = false;
 
 document.querySelector("#likeButton").addEventListener("click", () => {
@@ -28,6 +29,8 @@ function rateCar(status) {
     card1.classList.add("liked");
     card2.classList.remove("behind");
     profileName.innerHTML = "Uus username";
+    profileDesc.innerHTML =
+      "Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee ";
     setTimeout(() => {
       deleteOldCar(card1, card2);
     }, 1000);
@@ -41,6 +44,8 @@ function rateCar(status) {
   card1.classList.add("disliked");
   card2.classList.remove("behind");
   profileName.innerHTML = "Uus username";
+  profileDesc.innerHTML =
+    "Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee ";
   setTimeout(() => {
     deleteOldCar(card1, card2);
   }, 1000);
