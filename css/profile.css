@@ -1,0 +1,60 @@
+.content {
+    display: flex;
+}
+
+#pic {
+    vertical-align: middle;
+    width: 100%;
+    height: auto;
+    border-radius: 15%;
+
+}
+
+#submitCar {
+    text-align: center;
+}
+
+
+.carupload {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+#login_button {
+    width: 30%;
+    padding: 10px 0;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: none;
+    background: #BEA6A0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+#login_button:hover {
+    background: #d06479;
+}
+
+@media only screen and (min-width: 800px) {
+    #pic {
+        vertical-align: middle;
+        width: 50%;
+        height: auto;
+        border-radius: 15%;
+    }
+
+    .carupload {
+        margin: auto;
+        width: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    #myFile {
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+    }
+}
+
