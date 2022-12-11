@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
@@ -16,16 +16,19 @@ exports.login = async (req, res) => {
             return res.redirect('/login') ;
         }
 
-        pool.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+        pool.query('SELECT * FROM hon_user WHERE email = ?', [email], async (err, results) => {
             console.log(results);
-            if (!results || !await bcrypt.compare(password, results[0].password)) {
-                alert("Wrong password");
-                console.log("Wrong PAss");
-                return res.redirect('/login') ;
 
-            } else {
-                const id = results[0].id;
-                username = results[0].name;
+            if (!results || !await bcrypt.compare(password, results[0].Password))  {
+                alert("Wrong password");
+                 console.log(results[0].email);
+                console.log("Wrong PAss");
+                return res.redirect('/login');
+            }
+
+             else {
+                const id = results[0].UserID;
+                username = results[0].Username;
                 const token = jwt.sign({ id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 });
@@ -51,7 +54,7 @@ exports.login = async (req, res) => {
 exports.register = (req, res) => {
     console.log(req.body);
     const { name, email, password, passwordConfirm } = req.body;
-    pool.query('SELECT email from users WHERE email = ?', [email], async (err, results) => {
+    pool.query('SELECT email from hon_user WHERE email = ?', [email], async (err, results) => {
         if (err) {
             console.log(err);
         } else {
@@ -69,7 +72,7 @@ exports.register = (req, res) => {
         let hashedPassword = await bcrypt.hash(password, 8);
         console.log(hashedPassword);
 
-        pool.query('INSERT INTO users SET ?', { name: name, email: email, password: hashedPassword }, (err, results) => {
+        pool.query('INSERT INTO hon_user SET ?', { Username: name, email: email, Password: hashedPassword }, (err, results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -93,7 +96,7 @@ exports.isLoggedIn = async (req, res, next) => {
             console.log(decoded);
 
             // 2. Check if the user still exist
-            pool.query('SELECT * FROM users WHERE id = ?', [decoded.id], (err, results) => {
+            pool.query('SELECT * FROM hon_user WHERE UserID = ?', [decoded.id], (err, results) => {
                 console.log(results);
                 if (!results) {
                     return next();
