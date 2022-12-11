@@ -1,8 +1,11 @@
 "use strict";
+const url = "http://localhost:3000";
 const swipe = document.querySelector(".swipe");
 const profileName = document.querySelector("#profileName");
 const profileDesc = document.querySelector("#profileDesc");
+
 let isSwiping = false;
+let carID = 1; //vaihda tämä databasessa olevaan numeroon
 
 document.querySelector("#likeButton").addEventListener("click", () => {
   rateCar(true);
@@ -66,3 +69,22 @@ function createCarTwo() {
   newCarCard.classList.add("behind");
   swipe.appendChild(newCarCard);
 }
+
+const getCar = async (id) => {
+  try {
+    const fetchOptions = {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    const response = await fetch(url + "/car/" + id, fetchOptions);
+    const car = await response.json();
+    // createCarTwo(cars);
+    carID++;
+    return car;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+console.log(getCar(carID));
+console.log(getCar(carID));

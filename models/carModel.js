@@ -23,7 +23,7 @@ const getCar = async (carID, next) => {
       FROM hon_car 
       JOIN hon_user 
       ON hon_user.UserID = hon_car.UserID 
-      WHERE carID = 1;`,
+      WHERE carID = ?;`,
       [carID]
     );
     return rows;

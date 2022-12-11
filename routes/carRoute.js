@@ -1,7 +1,15 @@
 "use strict";
 const express = require("express");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.includes("image")) {
+    cb(null, true);
+  } else {
+    cb(httpError("Invalid file", 400));
+  }
+};
+
+const upload = multer({ dest: "uploads/", fileFilter });
 const {
   car_list_get,
   car_get,

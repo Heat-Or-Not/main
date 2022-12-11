@@ -8,6 +8,7 @@ const {
 } = require("../models/carModel");
 const { httpError } = require("../utils/errors");
 const { validationResult } = require("express-validator");
+const sharp = require("sharp");
 
 const car_list_get = async (req, res, next) => {
   try {
@@ -51,12 +52,18 @@ const car_post = async (req, res, next) => {
     }
 
     console.log("car_post", req.body, req.file);
+
+    const thumbnail = await sharp(req.file.path)
+      .resize(160, 160)
+      .png()
+      .toFile("./thumbnails/" + req.file.Image);
+
     const data = [
       req.body.Brand,
       req.body.Model,
       req.body.Description,
       req.body.UserID,
-      req.file.Image,
+      req.file.filename,
     ];
 
     const result = await addCar(data, next);
@@ -64,10 +71,12 @@ const car_post = async (req, res, next) => {
       next(httpError("Invalid data", 400));
       return;
     }
-    res.json({
-      message: "car added",
-      CarID: result.insertId,
-    });
+    if (thumbnail) {
+      res.json({
+        message: "car added",
+        CarID: result.insertId,
+      });
+    }
   } catch (e) {
     console.error("car_post", e.message);
     next(httpError("Internal server error", 500));
