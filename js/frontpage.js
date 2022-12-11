@@ -1,8 +1,7 @@
 "use strict";
 const url = "http://localhost:3000";
 const swipe = document.querySelector(".swipe");
-const profileName = document.querySelector("#profileName");
-const profileDesc = document.querySelector("#profileDesc");
+const link = document.querySelector(".link");
 
 let isSwiping = false;
 let carID = 1; //vaihda tämä databasessa olevaan numeroon
@@ -16,26 +15,30 @@ document.querySelector("#dislikeButton").addEventListener("click", () => {
   isSwiping = true;
 });
 
-function rateCar(status) {
+function createStartCards() {
+  getCar(true);
+  carID++;
+  getCar(false);
+}
+
+function rateCar(isLike) {
   if (isSwiping) {
     return;
   }
 
   const card1 = document.querySelector(".card1");
   const card2 = document.querySelector(".card2");
+  const profileContent = document.querySelector(".profile-content");
 
-  if (status) {
-    console.log("like");
+  profileContent.remove();
+  if (isLike) {
     if (card1.classList.contains("disliked")) {
       card1.classList.remove("disliked");
     }
     card1.classList.add("liked");
     card2.classList.remove("behind");
-    profileName.innerHTML = "Uus username";
-    profileDesc.innerHTML =
-      "Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee ";
     setTimeout(() => {
-      deleteOldCar(card1, card2);
+      deleteOldCard(card1, card2);
     }, 1000);
     return;
   }
@@ -46,45 +49,75 @@ function rateCar(status) {
   }
   card1.classList.add("disliked");
   card2.classList.remove("behind");
-  profileName.innerHTML = "Uus username";
-  profileDesc.innerHTML =
-    "Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee Uus tekstiboxi jeejee ";
   setTimeout(() => {
-    deleteOldCar(card1, card2);
+    deleteOldCard(card1, card2);
   }, 1000);
 }
-function deleteOldCar(card1, card2) {
+function deleteOldCard(card1, card2) {
   console.log("delete element");
   card1.remove();
   card2.classList.add("card1");
   card2.classList.remove("card2");
-  createCarTwo();
-  isSwiping = false;
+  const profile2 = document.querySelector(".hidden");
+  if (profile2 != null) {
+    profile2.classList.remove("hidden");
+    profile2.classList.add("visible");
+  }
+  getCar();
 }
-function createCarTwo() {
-  const newCarCard = document.createElement("img");
-  newCarCard.src = "images/car2.jpeg";
-  newCarCard.classList.add("card2");
-  newCarCard.classList.add("car-image");
-  newCarCard.classList.add("behind");
-  swipe.appendChild(newCarCard);
-}
-
-const getCar = async (id) => {
+const getCar = async (isFirst) => {
   try {
-    const fetchOptions = {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    };
-    const response = await fetch(url + "/car/" + id, fetchOptions);
-    const car = await response.json();
-    // createCarTwo(cars);
-    carID++;
-    return car;
+    const response = await fetch(url + "/car/" + carID);
+    const nextCar = await response.json();
+    //console.log(nextCar);
+    createCard(nextCar, isFirst);
   } catch (e) {
     console.log(e.message);
   }
 };
-console.log(getCar(carID));
-console.log(getCar(carID));
+
+function createCard(car, isFirstCard) {
+  const newCarCard = document.createElement("img");
+  newCarCard.src = url + "/" + car.Image;
+  newCarCard.alt = car.Brand;
+  newCarCard.classList.add("car-image");
+  if (isFirstCard) {
+    newCarCard.classList.add("card1");
+    swipe.appendChild(newCarCard);
+    createProfile(car, false);
+    return;
+  }
+  newCarCard.classList.add("card2");
+  newCarCard.classList.add("behind");
+  swipe.appendChild(newCarCard);
+  carID++;
+  createProfile(car, true);
+}
+
+function createProfile(car, hide) {
+  const profileContent = document.createElement("div");
+  profileContent.classList.add("profile-content");
+  if (!hide) {
+    profileContent.classList.add("visible");
+  }
+
+  const profileName = document.createElement("h2");
+  profileName.id = "profileName";
+  profileName.classList.add("profile-name");
+  profileName.innerHTML = car.Brand + " " + car.Model;
+
+  const profileDesc = document.createElement("p");
+  profileDesc.id = "profileDesc";
+  profileDesc.classList.add("profile-desc");
+  if (hide) {
+    profileContent.classList.add("hidden");
+  }
+  profileDesc.innerHTML = car.Description;
+
+  profileContent.appendChild(profileName);
+  profileContent.appendChild(profileDesc);
+  link.appendChild(profileContent);
+  isSwiping = false;
+}
+// getCar();
+createStartCards();

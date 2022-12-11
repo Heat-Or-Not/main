@@ -37,6 +37,21 @@
   filter: blur(100px);
   -webkit-filter: blur(2px);
 }
+.backMessage {
+  position: absolute;
+  white-space: nowrap;
+  font-family: raceFont, sans-serif;
+  z-index: -1;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  left: 0;
+  right: 0;
+  top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
 /*---Rating car-----------------------------------------------*/
 .rate {
   position: absolute;
@@ -138,6 +153,14 @@
   background: rgba(86, 66, 61, 0.6);
   border-radius: 15px;
   width: 300px;
+}
+.visible {
+  transition: 0.5s;
+  opacity: 1;
+}
+.hidden {
+  transition: 1s;
+  opacity: 0;
 }
 @media only screen and (max-width: 360px) {
   #likeButton {

@@ -54,7 +54,7 @@ const car_post = async (req, res, next) => {
     console.log("car_post", req.body, req.file);
 
     const thumbnail = await sharp(req.file.path)
-      .resize(160, 160)
+      .resize(256, 144)
       .png()
       .toFile("./thumbnails/" + req.file.Image);
 
