@@ -67,8 +67,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+#.env
+#.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -121,7 +121,7 @@ Temporary Items
 
 
 # ignore content of uploads folder
-uloads/*
+uploads/*
 # except one (empty) file to have the folder in version control
 !uploads/.gitkeep
 
