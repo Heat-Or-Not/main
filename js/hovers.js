@@ -2,6 +2,7 @@
 let held = false;
 const likeButton = document.querySelector("#likeButton");
 const dislikeButton = document.querySelector("#dislikeButton");
+
 // mouse
 likeButton.addEventListener("mousedown", () => {
   held = true;

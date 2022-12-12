@@ -35,6 +35,7 @@ const getLike = async (carID, next) => {
     next(httpError("Database error", 500));
   }
 };
+//TODO getDislike
 
 const addLike = async (data, next) => {
   try {

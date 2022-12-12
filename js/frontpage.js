@@ -4,13 +4,22 @@ const swipe = document.querySelector(".swipe");
 const link = document.querySelector(".link");
 
 let isSwiping = false;
+let isAtEnd = false;
 let carID = 1; //vaihda tämä databasessa olevaan numeroon
 
 document.querySelector("#likeButton").addEventListener("click", () => {
+  if (isAtEnd) {
+    deleteLastCard(true);
+    return;
+  }
   rateCar(true);
   isSwiping = true;
 });
 document.querySelector("#dislikeButton").addEventListener("click", () => {
+  if (isAtEnd) {
+    deleteLastCard(false);
+    return;
+  }
   rateCar(false);
   isSwiping = true;
 });
@@ -43,7 +52,6 @@ function rateCar(isLike) {
     }, 1000);
     return;
   }
-
   console.log("dislike");
   if (card1.classList.contains("liked")) {
     card1.classList.remove("liked");
@@ -72,6 +80,10 @@ const getCar = async (isFirst) => {
     const response = await fetch(url + "/car/" + carID);
     const nextCar = await response.json();
     //console.log(nextCar);
+    if (nextCar.Brand === undefined && nextCar.Model === undefined) {
+      isAtEnd = true;
+      return;
+    }
     createCard(nextCar, isFirst);
   } catch (e) {
     console.log(e.message);
@@ -146,5 +158,35 @@ const sendRating = async (status) => {
     console.log(e.message);
   }
 };
+
+function deleteLastCard(isLike) {
+  const card1 = document.querySelector(".card1");
+  const profileContent = document.querySelector(".profile-content");
+
+  if (profileContent === null && card1 === null) {
+    return;
+  }
+  profileContent.remove();
+  if (isLike) {
+    if (card1.classList.contains("disliked")) {
+      card1.classList.remove("disliked");
+    }
+    card1.classList.add("liked");
+    sendRating(true);
+    setTimeout(() => {
+      card1.remove();
+    }, 1000);
+    return;
+  }
+  console.log("dislike");
+  if (card1.classList.contains("liked")) {
+    card1.classList.remove("liked");
+  }
+  card1.classList.add("disliked");
+  sendRating(false);
+  setTimeout(() => {
+    card1.remove();
+  }, 1000);
+}
 // getCar();
 createStartCards();
