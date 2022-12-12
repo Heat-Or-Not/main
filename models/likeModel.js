@@ -6,8 +6,9 @@ const promisePool = pool.promise();
 const getLikesInRow = async (next) => {
   try {
     const [rows] = await promisePool.execute(
-      `SELECT CarID, COUNT(Status)
+      `SELECT CarID, COUNT(Status) AS likes
       FROM hon_likes
+      WHERE Status = true
       GROUP BY  CarID
       ORDER BY COUNT(Status) DESC;`
     );
@@ -21,11 +22,11 @@ const getLikesInRow = async (next) => {
 const getLike = async (carID, next) => {
   try {
     const [rows] = await promisePool.execute(
-      `SELECT COUNT(hon_likes.Status)
+      `SELECT COUNT(hon_likes.Status) AS likes
       FROM ((hon_likes
       INNER JOIN hon_car ON hon_likes.CarID = hon_car.CarID)
       INNER JOIN hon_user ON hon_likes.UserID = hon_user.UserID)
-      WHERE hon_likes.CarID = ? AND STATUS = true;`,
+      WHERE hon_likes.CarID = ? AND Status = true;`,
       [carID]
     );
     return rows;
@@ -43,7 +44,7 @@ const addLike = async (data, next) => {
     );
     return rows;
   } catch (e) {
-    console.error("addLikes", e.message);
+    console.error("addLike", e.message);
     next(httpError("Database error", 500));
   }
 };

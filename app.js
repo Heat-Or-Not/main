@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const carRoute = require("./routes/carRoute");
+const likeRoute = require("./routes/likeRoute");
 // const userRoute = require("./routes/userRoute");
 const { httpError } = require("./utils/errors");
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.static("uploads"));
 app.use("/thumbnails", express.static("thumbnails"));
 
 app.use("/car", carRoute);
+app.use("/like", likeRoute);
 // app.use("/user", userRoute);
 
 app.use((req, res, next) => {

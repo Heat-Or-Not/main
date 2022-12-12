@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const {
   like_list_get,
   like_get,
@@ -14,7 +15,7 @@ router
   .get(like_list_get)
   .post(
     upload.single("like"),
-    body("Status").isBoolean(),
+    body("status").isNumeric(),
     body("CarID").isNumeric(),
     body("UserID").isNumeric(),
     like_post

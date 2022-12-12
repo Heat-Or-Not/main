@@ -46,9 +46,10 @@ const like_post = async (req, res, next) => {
 
     console.log("like_post", req.body);
     const data = [
-      true, // req.body.status
-      1, // car id
-      1, // Logged in user id
+      req.body.status, // req.body.status
+      req.body.CarID, // car id
+      req.body.UserID, // TODO req.user.UserID Logged in user id
+      // ALSO REMOVE FORMDATA.append
     ];
 
     const result = await addLike(data, next);

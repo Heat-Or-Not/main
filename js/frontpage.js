@@ -37,6 +37,7 @@ function rateCar(isLike) {
     }
     card1.classList.add("liked");
     card2.classList.remove("behind");
+    sendRating(true);
     setTimeout(() => {
       deleteOldCard(card1, card2);
     }, 1000);
@@ -49,6 +50,7 @@ function rateCar(isLike) {
   }
   card1.classList.add("disliked");
   card2.classList.remove("behind");
+  sendRating(false);
   setTimeout(() => {
     deleteOldCard(card1, card2);
   }, 1000);
@@ -119,5 +121,30 @@ function createProfile(car, hide) {
   link.appendChild(profileContent);
   isSwiping = false;
 }
+
+const sendRating = async (status) => {
+  try {
+    const fd = new FormData();
+    const inFrontCarID = carID - 2;
+    if (status === true) {
+      fd.append("status", 1); //status
+    } else {
+      fd.append("status", 0); //status
+    }
+    fd.append("CarID", inFrontCarID); //inFrontCarID
+    fd.append("UserID", 6);
+
+    const fetchOptions = {
+      method: "POST",
+      body: fd,
+    };
+
+    const response = await fetch(url + "/like", fetchOptions);
+    const json = await response.json();
+    console.log(json.message);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 // getCar();
 createStartCards();
