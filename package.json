@@ -1,6 +1,19 @@
 {
+  "name": "my_sql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
+    "alert": "^5.1.2",
+    "bcryptjs": "^2.4.3",
     "bearer-token": "^2.0.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -12,5 +25,8 @@
     "promise-pool": "^0.1.9",
     "router": "^1.3.7",
     "sharp": "^0.31.2"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
   }
 }

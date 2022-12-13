@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Heat or not</title>
+    <link rel="stylesheet" href="css/structure.css"/>
+    <link rel="stylesheet" href="css/profile.css"/>
+    <script
+            src="https://kit.fontawesome.com/c02d3fc986.js"
+            crossorigin="anonymous"
+            defer
+    ></script>
+
+    <!-- <script src="js/test.js" defer></script> -->
+
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="header-container">
+            <h1><strong>Heat</strong> or not</h1>
+        </div>
+        <hr>
+    </header>
+    <main>
+
+
+        <div class="profile_container">
+            <div id="profile_name">
+                <h1>@Matti Meikäläinen</h1>
+            </div>
+            <div class="car_pictures">
+                <img src="images/car1.jpeg" height="200px" width="200px">
+            </div>
+            <div id="car_model">
+                <h2>honda jazz</h2>
+            </div>
+            <div class="info_container">
+                <div id="description_section">
+                    <h3 id="description_title">Tiedot</h3>
+                    <div id="description">
+                        <p>Kaiken kaikkiaan makee amerikan auto jolla voi mennä kesät talvet. Erittäin lämmin ja
+                            tiivisteet
+                            sen verran kunnossa ettei sisällä viima käy. Sisusta lattiamattoa lukuunottamatta ehjä ja
+                            siisti.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="comments">
+
+                <form action="#">
+                    <label>Kommentoi</label>
+                    <textarea name="comment" id="#" cols="30" rows="10"
+                              placeholder="mitä olit mieltä autosta?..."></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="coral-talk-comments">
+                <div class="heading-container"><h5 class="card-heading ">KESKUSTELU</h5>
+                    <button class="show-rules">Säännöt</button>
+                    <button class="show-commenting">Piilota</button>
+                </div>
+                <button class="button login-btn commenting">Kirjaudu sisään kommentoidaksesi</button>
+                <div class="bottom-container">
+                    <div class="commenting-tabs">
+                        <button class="tab active">Kommentit (56)</button>
+                        <div class="orderby-tabs-container">
+                            <div class="order-by">
+                                <button class="selected-value reset-btn"><span>Uusin</span>
+                                    <svg class="arrow-svg arrow-dir-down" viewBox="0 0 12 7" fill="none">
+                                        <path d="M1 1L6 6L11 1" class="arrow-path"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-comments">
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">N9</div>
+                                <div class="time">kaksi päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Paljon tullut lunta tässä muutaman päivän aikana</div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">kukaon</div>
+                                <div class="time">kaksi päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Ei jatkoon! :)</div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">jamespond</div>
+                                <div class="time">neljä päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Hän on oikein suosittu, hänen nimensä on Matti ja veljensä nimi on
+                                Teppo
+                            </div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">Mielensapahoittaja_77</div>
+                                <div class="time">neljä päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Oli se niin hauskaa että aina kun kuulen tämän "räppärin" biisejä niin
+                                kanava vaihtuu.
+                            </div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                    <div class="thumb-count">3</div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">asiantuntijat</div>
+                                <div class="time">neljä päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Kuukausi sitten kukaan ei tun TENUt henkilöä tai korjaan ehkä tuhat
+                                tunsi. nyt menossa johonkin gaalaankin kai. TUNNEN MYÖTÄHÄPEÄÄ.
+                            </div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                    <div class="thumb-count">9</div>
+                                </button>
+                            </div>
+                            <div class="article-comments-container">
+                                <div class="article-comments">
+                                    <div class="comment-container">
+                                        <div class="top-row"><img class="reply-icon" alt="reply-icon"
+                                                                  src="https://assets.dev.ilcdn.fi/599c3c947788ce237f8bbcebd4f17c451c7946470d8727449353a41c0171fcfa.svg">
+                                            <div class="comment-writer">bongivesi</div>
+                                            <div class="time">kolme päivää sitten</div>
+                                            <button class="report">Ilmianna</button>
+                                        </div>
+                                        <div class="comment">kuukausi sitten hänellä oli jo puoli miljoonaa kuuntelijaa
+                                            kuukaudessa pelkästään spotifyssä. Siihen vielä muutkin suoratoistopalvelut
+                                            päälle niin se on noin kymmenesosa suomalaisista?
+                                        </div>
+                                        <div class="reply-container">
+                                            <button class="reply">Vastaa</button>
+                                            <button class="thumb"><img alt="thumb"
+                                                                       src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                                <div class="thumb-count">2</div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button class="show-more-button" aria-label="Näytä lisää">Näytä lisää
+                                        vastauksia<span class="arrow"><svg class="arrow-svg arrow-dir-down"
+                                                                           viewBox="0 0 12 7" fill="none"><path
+                                                d="M1 1L6 6L11 1" class="arrow-path"></path></svg></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="top-row">
+                                <div class="comment-writer">LauriKaarnajoki</div>
+                                <div class="time">neljä päivää sitten</div>
+                                <button class="report">Ilmianna</button>
+                            </div>
+                            <div class="comment">Näistä tuntemattomista artisteista voisi saada muitakin hauskoja
+                                uutisia! Toimittaja voisi soittaa esim. jollekin satunnaiselle hanurin- tai
+                                viulunsoittajalle ja kysellä kuulumisia.
+                            </div>
+                            <div class="reply-container">
+                                <button class="reply">Vastaa</button>
+                                <button class="thumb"><img alt="thumb"
+                                                           src="https://assets.dev.ilcdn.fi/82a2d6011ca3147944d036e9372bbcc85c371b27c49ed90c23f280103c7c82be.svg">
+                                    <div class="thumb-count">7</div>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="show-more-button" aria-label="Näytä lisää">Näytä lisää kommentteja<span
+                                class="arrow"><svg class="arrow-svg arrow-dir-down" viewBox="0 0 12 7" fill="none"><path
+                                d="M1 1L6 6L11 1" class="arrow-path"></path></svg></span></button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <!--  <div class="content">
+              <div id="profile">
+                  <img id="pic" src="images/car2.jpeg" alt="profile_icon">
+              </div>
+              <div class="userinfo">
+                  <div id="name">
+                      <h2>Matti Meikäläinen</h2>
+                  </div>
+                  <div class="user_email">
+                      <h2>matti.meikalainen@gmail.com</h2>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <h2 id="submitCar">Submit your Car</h2>
+
+          <div class="carupload">
+              <form id="carSubmit">
+                  <label for="cars">Choose a car:</label>
+                  <select name="cars" id="cars">
+                      <option value="volvo">Volvo</option>
+                      <option value="mercedes">Mercedes</option>
+                      <option value="saab">Saab</option>
+                      <option value="opel">Opel</option>
+                      <option value="audi">Audi</option>
+                      <option value="bmw">BMW</option>
+                  </select>
+                  <hr>
+                  <label>
+                      <textarea rows="4" cols="50" name="comment" form="carSubmit">Write Description of the car</textarea>
+                  </label>
+
+                  <label> <input type="file" id="myFile" name="filename"> </label>
+                  <button id="login_button" type="submit" >Submit</button>
+
+
+              </form>
+          </div>
+  -->
+    </main>
+    <nav class="nav-bar">
+        <ul class="nav-bar-list">
+            <li class="nav-element">
+                <a href="frontpage.html"><i class="fa-solid fa-house-chimney"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="ranking.html"><i class="fa-solid fa-star"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="profile.html"
+                   style="color: #ff0000a1; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"><i
+                        class="fa-solid fa-user"></i></a>
+            </li>
+            <li class="nav-element">
+                <a href="/auth/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
+
