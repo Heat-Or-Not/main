@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 const pool = require('../database/db');
-let alert = require('alert');
 const express = require("express");
 const {json} = require("express");
 let username;
@@ -14,16 +13,19 @@ exports.login = async (req, res) => {
     try {
         const { email, password, name } = req.body;
         if (!email || !password) {
-            alert("Fill missing fields");
             console.log("Missing email or password");
             return res.redirect('/login') ;
         }
 
         pool.query('SELECT * FROM hon_user WHERE email = ?', [email], async (err, results) => {
             console.log(results);
+            let sqlResult = JSON.stringify(results);
+            if(!sqlResult.includes("email")) {
+                return res.redirect('/login');
+            }
 
-            if (!results || !await bcrypt.compare(password, results[0].Password))  {
-                alert("Wrong password");
+
+            else if (!results || !await bcrypt.compare(password, results[0].Password))  {
                  console.log(results[0].email);
                 console.log("Wrong PAss");
                 return res.redirect('/login');
@@ -52,6 +54,7 @@ exports.login = async (req, res) => {
         })
     } catch (err) {
         console.log(err);
+        return res.redirect('/login');
     }
 }
 
@@ -64,10 +67,8 @@ exports.register = (req, res) => {
         } else {
             if (results.length > 0) {
                 console.log("Sposti varattu");
-                alert("This email is already in use")
                 return res.redirect('/register') ;
             } else if (password != passwordConfirm) {
-                alert("Passwords do not match!")
                 console.log("Passwords do not match !");
                 return res.redirect('/register') ;
             }
