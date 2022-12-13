@@ -19,6 +19,7 @@
     height: 85%;
     box-shadow: 1px 2px 5px rgb(0 0 0 / 31%);
     background: #ebebeb;
+
 }
 
 main {
@@ -188,3 +189,4 @@ a.btn:hover {
         height: 2.5rem;
     }
 }
+

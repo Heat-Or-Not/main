@@ -34,5 +34,12 @@ router.get('/ranking', authController.isLoggedIn, (req, res) => {
         res.sendFile("login.html", { root: './ui/' });
     }
 });
+router.get('/getUserInfo', authController.getUserInfo, (req, res) => {
+    console.log("Here");
+    res.sendFile("login.html", { root: './ui/' })
+});
+
+
+
 
 module.exports = router;

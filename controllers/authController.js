@@ -4,7 +4,10 @@ const bcrypt = require("bcryptjs");
 const { promisify } = require("util");
 const pool = require('../database/db');
 let alert = require('alert');
+const express = require("express");
+const {json} = require("express");
 let username;
+
 
 
 exports.login = async (req, res) => {
@@ -31,6 +34,7 @@ exports.login = async (req, res) => {
                 username = results[0].Username;
                 const token = jwt.sign({ id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
+
                 });
 
                 console.log(token);
@@ -86,6 +90,8 @@ exports.register = (req, res) => {
 
 }
 
+
+
 exports.isLoggedIn = async (req, res, next) => {
     if (req.cookies.token) {
         try {
@@ -98,6 +104,8 @@ exports.isLoggedIn = async (req, res, next) => {
             // 2. Check if the user still exist
             pool.query('SELECT * FROM hon_user WHERE UserID = ?', [decoded.id], (err, results) => {
                 console.log(results);
+               // console.log("test id " + JSON.stringify(results));
+                const gg = JSON.stringify(results);
                 if (!results) {
                     return next();
                 }
@@ -120,3 +128,22 @@ exports.logout = (req, res) => {
     res.status(200).redirect("/");
 }
 
+exports.getUserInfo = async (req, res, next) => {
+    if (req.cookies.token) {
+        try {
+            // 1. Verify the token
+            const decoded = await promisify(jwt.verify)(req.cookies.token,
+                process.env.JWT_SECRET
+            );
+            console.log(decoded);
+
+            // 2. Check if the user still exist
+            pool.query('SELECT * FROM hon_user WHERE UserID = ?', [decoded.id], (err, results) => {
+                console.log(results);
+                res.json(results);
+            });
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
