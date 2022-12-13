@@ -15,7 +15,7 @@ exports.getUserInfo = async (req, res, next) => {
             console.log(decoded);
 
             // 2. Check if the user still exist
-            pool.query('SELECT * FROM hon_user WHERE UserID = ?', [decoded.id], (err, results) => {
+            pool.query('SELECT hon_user.UserID, hon_user.email, hon_user.Username, hon_user.LastViewed, hon_car.CarID, hon_car.Brand, hon_car.Model, hon_car.Description, hon_car.Image from hon_user INNER JOIN hon_car ON hon_car.UserID = hon_user.UserID WHERE hon_user.UserID = ?', [decoded.id], (err, results) => {
                 console.log(results);
                 res.json(results);
             });
@@ -29,7 +29,7 @@ exports.getUserInfo = async (req, res, next) => {
 //returns of every user
 exports.getUsers = async (req, res, next) => {
     const fetchid = req.params.id;
-    pool.query('select * from hon_user WHERE userID = ?', fetchid,(err,results)=>{
+    pool.query('SELECT hon_user.UserID, hon_user.email, hon_user.Username, hon_user.LastViewed, hon_car.CarID, hon_car.Brand, hon_car.Model, hon_car.Description, hon_car.Image from hon_user INNER JOIN hon_car ON hon_car.UserID = hon_user.UserID WHERE hon_user.UserID = ?', fetchid,(err,results)=>{
         if(err) {
             console.log(err);
         }else {

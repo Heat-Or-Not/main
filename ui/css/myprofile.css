@@ -1,17 +1,43 @@
+main {
+    overflow: auto;
+}
+
 .content {
     display: flex;
 }
 
+
+
 #pic {
     vertical-align: middle;
-    width: 100%;
+    width: 500%;
     height: auto;
     border-radius: 15%;
+    margin: 15% auto;
+}
+
+#profile {
+
+    width: 15%;
+    height: auto;
+    transform: translate(75%, 0%);
 
 }
 
+.userinfo {
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    font-family: "Courier New";
+    src: url("../fonts/ZenDots-Regular.ttf");
+
+}
+
+
 #submitCar {
     text-align: center;
+    font-family: "Courier New";
+    src: url("../fonts/ZenDots-Regular.ttf");
 }
 
 
@@ -39,9 +65,11 @@
 @media only screen and (min-width: 800px) {
     #pic {
         vertical-align: middle;
-        width: 50%;
+        width: 200%;
         height: auto;
         border-radius: 15%;
+        transform: translate(80%, 0%);
+
     }
 
     .carupload {

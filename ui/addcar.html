@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Car</title>
+  <link href="css/ui3.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+  <nav>
+    <ul>
+      <li><a href="frontPage.html">Frontpage</a></li>
+      <li><a href="addCar.html">Add car</a></li>
+    </ul>
+  </nav>
+  <hr />
+  <div class="forms">
+    <div class="form-wrapper">
+      <h3>Add car</h3>
+      <form
+              action="http://localhost:3000/car"
+              method="post"
+              class="light-border"
+              enctype="multipart/form-data"
+              id="addCarForm"
+      >
+        <input
+                class="light-border"
+                type="text"
+                name="Brand"
+                placeholder="Brand"
+        />
+        <input
+                class="light-border"
+                type="text"
+                name="Model"
+                placeholder="Model"
+        />
+        <input
+                class="light-border"
+                type="text"
+                name="Description"
+                placeholder="Description"
+        />
+        <input
+                class="light-border"
+                type="text"
+                name="UserID"
+                placeholder="UserID"
+        />
+        <input
+                class="light-border"
+                type="file"
+                name="car"
+                accept="image/*"
+                placeholder="Choose file"
+        />
+        <button class="light-border" type="submit">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="js/addCar.js"></script>
+</body>
+</html>

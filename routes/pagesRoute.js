@@ -29,6 +29,14 @@ router.get('/profile', authController.isLoggedIn, (req, res) => {
     }
 });
 
+router.get('/myprofile', authController.isLoggedIn, (req, res) => {
+    if (req.user) {
+        res.sendFile("myprofile.html", { root: './ui/' })
+    } else {
+        res.sendFile("login.html", { root: './ui/' });
+    }
+});
+
 router.get('/ranking', authController.isLoggedIn, (req, res) => {
     if (req.user) {
         res.sendFile("ranking.html", { root: './ui/' })
