@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const cors = require("cors");
-const path = require("path")
+const path = require("path");
 const mysql = require("mysql2");
 const carRoute = require("./routes/carRoute");
 const likeRoute = require("./routes/likeRoute");
@@ -10,8 +10,6 @@ const { httpError } = require("./utils/errors");
 const app = express();
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const carRoute = require("../HON_Project/routes/carRoute");
-const { httpError } = require("../HON_Project/utils/errors");
 const port = 3000;
 
 app.use(cors());
@@ -21,24 +19,24 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(express.static("uploads"));
 app.use("/thumbnails", express.static("thumbnails"));
 app.use(cookieParser());
-app.set('view engine', 'html');
+app.set("view engine", "html");
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
 db.connect((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("MYSQL CONNECTED")
-    }
-})
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("MYSQL CONNECTED");
+  }
+});
 // Define Routes
-app.use('/', require('./routes/pagesRoute'));
-app.use('/auth', require('./routes/authRoute'));
+app.use("/", require("./routes/pagesRoute"));
+app.use("/auth", require("./routes/authRoute"));
 
 app.use("/car", carRoute);
 app.use("/like", likeRoute);

@@ -21,5 +21,5 @@ addForm.addEventListener("submit", async (evt) => {
   const json = await response.json();
   console.log();
   alert(json.message);
-  //   location.href = "frontPage.html";
+  location.href = "frontPage.html";
 });

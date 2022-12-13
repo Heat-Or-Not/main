@@ -1,92 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Heat or not</title>
-    <link rel="stylesheet" href="/css/structure.css" />
-    <link rel="stylesheet" href="/css/myprofile.css" />
+    <link rel="stylesheet" href="css/structure.css" />
+    <link rel="stylesheet" href="css/myprofile.css" />
     <script
-            src="https://kit.fontawesome.com/c02d3fc986.js"
-            crossorigin="anonymous"
-            defer
+      src="https://kit.fontawesome.com/c02d3fc986.js"
+      crossorigin="anonymous"
+      defer
     ></script>
-
 
     <!--  ! -->
     <script src="js/profile.js" defer></script>
-</head>
-<body>
-<div class="container">
-    <header>
+  </head>
+  <body>
+    <div class="container">
+      <header>
         <div class="header-container">
-            <h1><strong>Heat</strong> or not</h1>
+          <h1><strong>Heat</strong> or not</h1>
         </div>
-        <hr>
-    </header>
-    <main>
+        <hr />
+      </header>
+      <main>
         <div class="content">
+          <div class="userinfo">
+            <div id="name">
+              <h2 id="nimi"></h2>
 
-
-            <div class="userinfo">
-                <div id="name">
-                    <h2 id="nimi"></h2>
-
-
-                    <h2 id="email"></h2>
-                </div>
+              <h2 id="email"></h2>
             </div>
+          </div>
         </div>
-        <hr>
+        <hr />
         <div id="profile">
-            <img id="pic" src="images/car2.jpeg" alt="img">
+          <img id="pic" src="images/car2.jpeg" alt="img" />
         </div>
 
-        <hr>
+        <hr />
         <h2 id="submitCar">Submit your Car</h2>
 
         <div class="carupload">
-            <form id="carSubmit">
-                <label for="cars">Choose a car:</label>
-                <select name="cars" id="cars">
-                    <option value="volvo">Volvo</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="saab">Saab</option>
-                    <option value="opel">Opel</option>
-                    <option value="audi">Audi</option>
-                    <option value="bmw">BMW</option>
-                </select>
-                <hr>
-                <label>
-                    <textarea rows="4" cols="50" name="comment" form="carSubmit"></textarea>
-                </label>
+          <form id="carSubmit">
+            <label for="cars">Choose a car:</label>
+            <select name="cars" id="cars">
+              <option value="volvo">Volvo</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="saab">Saab</option>
+              <option value="opel">Opel</option>
+              <option value="audi">Audi</option>
+              <option value="bmw">BMW</option>
+            </select>
+            <hr />
+            <label>
+              <textarea
+                rows="4"
+                cols="50"
+                name="comment"
+                form="carSubmit"
+              ></textarea>
+            </label>
 
-                <label> <input type="file" id="myFile" name="filename"> </label>
-                <button id="login_button" type="submit" >Submit</button>
-
-
-            </form>
+            <label> <input type="file" id="myFile" name="filename" /> </label>
+            <button id="login_button" type="submit">Submit</button>
+          </form>
         </div>
-
-    </main>
-    <nav class="nav-bar">
+      </main>
+      <nav class="nav-bar">
         <ul class="nav-bar-list">
-            <li class="nav-element">
-                <a href="/front"><i class="fa-solid fa-house-chimney"></i></a>
-            </li>
-            <li class="nav-element">
-                <a href="/ranking"><i class="fa-solid fa-star"></i></a>
-            </li>
-            <li class="nav-element">
-                <a href="/profile"><i class="fa-solid fa-user"></i></a>
-            </li>
-            <li class="nav-element">
-                <a href="/auth/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-            </li>
+          <li class="nav-element">
+            <a href="/front"><i class="fa-solid fa-house-chimney"></i></a>
+          </li>
+          <li class="nav-element">
+            <a href="/ranking"><i class="fa-solid fa-star"></i></a>
+          </li>
+          <li class="nav-element">
+            <a href="/profile"><i class="fa-solid fa-user"></i></a>
+          </li>
+          <li class="nav-element">
+            <a href="/auth/logout"
+              ><i class="fa-solid fa-right-from-bracket"></i
+            ></a>
+          </li>
         </ul>
-    </nav>
-</div>
-
-</body>
+      </nav>
+    </div>
+  </body>
 </html>

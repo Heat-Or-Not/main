@@ -106,12 +106,3 @@ nav {
     margin: auto;
   }
 }
-
-.footer {
-  background-color: red;
-  flex: 1;
-  min-height: 75px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
