@@ -97,6 +97,9 @@ typings/
 # Icon must end with two \r
 Icon
 
+node_modules
+.env
+
 # Thumbnails
 ._*
 

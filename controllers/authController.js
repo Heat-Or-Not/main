@@ -127,23 +127,3 @@ exports.logout = (req, res) => {
     });
     res.status(200).redirect("/");
 }
-
-exports.getUserInfo = async (req, res, next) => {
-    if (req.cookies.token) {
-        try {
-            // 1. Verify the token
-            const decoded = await promisify(jwt.verify)(req.cookies.token,
-                process.env.JWT_SECRET
-            );
-            console.log(decoded);
-
-            // 2. Check if the user still exist
-            pool.query('SELECT * FROM hon_user WHERE UserID = ?', [decoded.id], (err, results) => {
-                console.log(results);
-                res.json(results);
-            });
-        } catch (err) {
-            console.log(err)
-        }
-    }
-}

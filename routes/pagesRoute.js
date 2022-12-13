@@ -1,6 +1,8 @@
 const express = require("express");
 const authController = require("../controllers/authController");
+const userController = require("../controllers/userController");
 const router = express.Router();
+const pool = require('../database/db');
 
 router.get('/', (req, res) => {
     res.sendFile("login.html", { root: './ui/' })
@@ -34,12 +36,13 @@ router.get('/ranking', authController.isLoggedIn, (req, res) => {
         res.sendFile("login.html", { root: './ui/' });
     }
 });
-router.get('/getUserInfo', authController.getUserInfo, (req, res) => {
-    console.log("Here");
-    res.sendFile("login.html", { root: './ui/' })
+router.get('/getUserInfo', userController.getUserInfo, (req, res) => {
+    res.sendStatus(200);
 });
 
-
+router.get("/getUsers/:id", userController.getUsers, (req, res) =>{
+    res.sendStatus(200);
+})
 
 
 module.exports = router;
