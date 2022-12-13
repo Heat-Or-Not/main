@@ -1,9 +1,4 @@
 
-* {
-    font-family: 'Noto Sans', sans-serif;
-    font-family: 'Work Sans', sans-serif;
-}
-
 #title {
     display: flex;
     align-content: center;
@@ -15,15 +10,14 @@
 .list_container {
     position: relative;
     margin: auto;
-    max-width: 65%;
+    max-width: 800px;
     height: 85%;
     box-shadow: 1px 2px 5px rgb(0 0 0 / 31%);
     background: #ebebeb;
-}
-
-main {
     overflow: scroll;
 }
+
+
 
 .profile-pic {
     height: 75px;
