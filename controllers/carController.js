@@ -95,24 +95,30 @@ const car_put = async (req, res, next) => {
       next(httpError("Invalid data", 400));
       return;
     }
+    const thumbnail = await sharp(req.file.path)
+      .resize(256, 144)
+      .png()
+      .toFile("./thumbnails/" + req.file.Image);
 
     const data = [
       req.body.Brand,
       req.body.Model,
       req.body.Description,
-      req.body.UserID,
-      req.body.id,
+      req.file.filename,
+      req.body.CarID,
     ];
 
     const result = await updateCar(data, next);
     if (result.affectedRows < 1) {
-      next(httpError("No car modified", 400));
+      next(httpError("Invalid data", 400));
       return;
     }
-
-    res.json({
-      message: "car modified",
-    });
+    if (thumbnail) {
+      res.json({
+        message: "car updated",
+        CarID: result.insertId,
+      });
+    }
   } catch (e) {
     console.error("car_put", e.message);
     next(httpError("Internal server error", 500));
