@@ -2,31 +2,16 @@
 
 fetch(`${env.baseUrl}/user`)
     .then(response => response.json())
-    .then(data => {
-        //console.log(data);
-        const email = data[0].email;
-        const user = data[0].Username;
-        const id = data[0].UserID;
+    .then(user => {
+        document.getElementById("nimi").innerHTML = user.Username;
+        document.getElementById("email").innerHTML = user.email;
+        document.querySelector('input[name="UserID"]').value = user.UserID;
 
-        document.getElementById("nimi").innerHTML = user;
-        document.getElementById("email").innerHTML = email;
-        document.querySelector('input[name="UserID"]').value = id;
-
-        const getImg = `http://localhost:3000/getUsers/${id}`;
-
-        fetch(getImg)
-            .then(response => response.json())
-            .then(datas => {
-
-                const imgID = datas[0].Image;
-
-                // Tämä linkki pitää vaihtaa sitten serverin osoitteeseen!
-                const url2 = "https://users.metropolia.fi/~adamah/images/" + imgID;
-                document.getElementById('pic').src = url2;
-
-
-            });
+        if (user.Cars.length > 0) {
+            const myLatestCarImage = user.Cars[user.Cars.length - 1].Image;
+            // Tämä linkki pitää vaihtaa sitten serverin osoitteeseen!
+            document.getElementById('pic').src = "https://users.metropolia.fi/~adamah/images/" + myLatestCarImage;
+        } else {
+            document.getElementById('pic').src = "images/car2.jpeg";
+        }
     });
-///////////////////////////////////
-
-//Car Uploading through profile

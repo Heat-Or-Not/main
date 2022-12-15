@@ -26,14 +26,6 @@ router.get('/front', authController.isLoggedIn, (req, res) => {
     }
 });
 
-router.get('/profile', authController.isLoggedIn, (req, res) => {
-    if (req.user) {
-        res.sendFile("profile.html", { root: './ui/' })
-    } else {
-        res.sendFile("login.html", { root: './ui/' });
-    }
-});
-
 router.get('/myprofile', authController.isLoggedIn, (req, res) => {
     if (req.user) {
         res.sendFile("myprofile.html", { root: './ui/' })

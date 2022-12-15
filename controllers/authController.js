@@ -7,8 +7,6 @@ const express = require("express");
 const {json} = require("express");
 let username;
 
-
-
 exports.login = async (req, res) => {
     try {
         const { email, password, name } = req.body;

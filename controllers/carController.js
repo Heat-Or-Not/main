@@ -70,10 +70,14 @@ const car_post = async (req, res, next) => {
       return next(httpError("Invalid data", 400));
     }
     if (thumbnail) {
-      res.json({
-        message: "car added",
-        CarID: result.insertId,
-      });
+      if (req.body.redirectToProfile) {
+        res.redirect('/myprofile');
+      } else {
+        res.json({
+          message: "car added",
+          CarID: result.insertId,
+        });
+      }
     }
   } catch (e) {
     console.error("car_post", e.message);

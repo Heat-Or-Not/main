@@ -16,7 +16,7 @@ const getUserDetails = (id) => new Promise((resolve, reject) => {
         console.log("getUserDetails for " + id, results);
 
         const cars = results
-            .filter((result) => result.CarId)
+            .filter((result) => result.CarID)
             .map((result) => ({
                 Brand: result.Brand,
                 Description: result.Description,
