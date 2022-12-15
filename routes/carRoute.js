@@ -16,6 +16,8 @@ const {
   car_post,
   car_put,
   car_delete,
+  lw_put,
+  lw_list_get,
 } = require("../controllers/carController");
 const { body } = require("express-validator");
 const router = express.Router();
@@ -38,6 +40,7 @@ router
     body("CarID").isNumeric(),
     car_put
   );
+router.route("/getLW").get(lw_list_get).put(lw_put);
 
 router.route("/:id").get(car_get).delete(car_delete);
 

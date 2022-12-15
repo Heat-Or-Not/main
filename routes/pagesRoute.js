@@ -52,4 +52,8 @@ router.get("/getUsers/:id", userController.getUsers, (req, res) => {
   res.sendStatus(200);
 });
 
+// router.put("/updateLW/:lw/:id", userController.getLW, (req, res) => {
+//   res.sendStatus(200);
+// });
+
 module.exports = router;

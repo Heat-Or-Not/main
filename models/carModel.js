@@ -58,6 +58,27 @@ const updateCar = async (data, next) => {
     next(httpError("Database error", 500));
   }
 };
+const getAllLw = async (next) => {
+  try {
+    const [rows] = await promisePool.execute(`SELECT * FROM hon_user;`);
+    return rows;
+  } catch (e) {
+    console.error("getAllLw", e.message);
+    next(httpError("Database error", 500));
+  }
+};
+const updateLW = async (data, next) => {
+  try {
+    const [rows] = await promisePool.execute(
+      `UPDATE hon_user SET LastViewed= ? WHERE UserID = ?;`,
+      data
+    );
+    return rows;
+  } catch (e) {
+    console.error("updateLW", e.message);
+    next(httpError("Database error", 500));
+  }
+};
 
 const deleteCar = async (carID, next) => {
   try {
@@ -78,4 +99,6 @@ module.exports = {
   addCar,
   updateCar,
   deleteCar,
+  updateLW,
+  getAllLw,
 };

@@ -44,7 +44,7 @@ const like_post = async (req, res, next) => {
       return;
     }
 
-    console.log("like_post", req.body);
+    // console.log("like_post", req.body);
     const data = [
       req.body.status, // req.body.status
       req.body.CarID, // car id

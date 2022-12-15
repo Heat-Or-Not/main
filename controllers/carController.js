@@ -5,6 +5,8 @@ const {
   addCar,
   updateCar,
   deleteCar,
+  updateLW,
+  getAllLw,
 } = require("../models/carModel");
 const { httpError } = require("../utils/errors");
 const { validationResult } = require("express-validator");
@@ -124,6 +126,47 @@ const car_put = async (req, res, next) => {
     next(httpError("Internal server error", 500));
   }
 };
+const lw_list_get = async (req, res, next) => {
+  try {
+    const lws = await getAllLw(next);
+    if (lws.length < 1) {
+      next(httpError("No lws found", 404));
+      return;
+    }
+    res.json(lws);
+  } catch (e) {
+    console.error("lw_list_get", e.message);
+    next(httpError("Internal server error", 500));
+  }
+};
+const lw_put = async (req, res, next) => {
+  try {
+    // Extract the validation errors from a request.
+    // const errors = validationResult(req);
+
+    // if (!errors.isEmpty()) {
+    //   // There are errors.
+    //   // Error messages can be returned in an array using `errors.array()`.
+    //   console.error("lw_put validation", errors.array());
+    //   next(httpError("Invalid data", 400));
+    //   return;
+    // }
+    const data = [req.query.LastViewed, req.query.UserID];
+    console.log(data[0] + " and " + data[1]);
+    const result = await updateLW(data, next);
+    if (result.affectedRows < 1) {
+      next(httpError("Invalid data", 400));
+      return;
+    }
+    res.json({
+      message: "lw updated",
+      CarID: result.insertId,
+    });
+  } catch (e) {
+    console.error("lw_put", e.message);
+    next(httpError("Internal server error", 500));
+  }
+};
 
 const car_delete = async (req, res, next) => {
   try {
@@ -147,4 +190,6 @@ module.exports = {
   car_post,
   car_put,
   car_delete,
+  lw_put,
+  lw_list_get,
 };

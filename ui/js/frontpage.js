@@ -5,7 +5,9 @@ const link = document.querySelector(".link");
 
 let isSwiping = false;
 let isAtEnd = false;
-let carID; //vaihda tämä databasessa olevaan numeroon
+let lastViewed; //curernt viewed to store to database
+let swipeCarID; // car id behind the first one
+let loggedInUser;
 
 document.querySelector("#likeButton").addEventListener("click", () => {
   if (isAtEnd) {
@@ -26,7 +28,7 @@ document.querySelector("#dislikeButton").addEventListener("click", () => {
 
 function createStartCards() {
   getCar(true);
-  carID++;
+  swipeCarID++;
   getCar(false);
 }
 
@@ -34,7 +36,6 @@ function rateCar(isLike) {
   if (isSwiping) {
     return;
   }
-
   const card1 = document.querySelector(".card1");
   const card2 = document.querySelector(".card2");
   const profileContent = document.querySelector(".profile-content");
@@ -46,18 +47,19 @@ function rateCar(isLike) {
     }
     card1.classList.add("liked");
     card2.classList.remove("behind");
+    incrementCarID();
     sendRating(true);
     setTimeout(() => {
       deleteOldCard(card1, card2);
     }, 1000);
     return;
   }
-  console.log("dislike");
   if (card1.classList.contains("liked")) {
     card1.classList.remove("liked");
   }
   card1.classList.add("disliked");
   card2.classList.remove("behind");
+  incrementCarID();
   sendRating(false);
   setTimeout(() => {
     deleteOldCard(card1, card2);
@@ -77,10 +79,11 @@ function deleteOldCard(card1, card2) {
 }
 const getCar = async (isFirst) => {
   try {
-    const response = await fetch(url + "/car/" + carID);
+    const response = await fetch(url + "/car/" + swipeCarID);
     const nextCar = await response.json();
     //console.log(nextCar);
     if (nextCar.Brand === undefined && nextCar.Model === undefined) {
+      // if database does not have any more cars
       isAtEnd = true;
       return;
     }
@@ -104,7 +107,7 @@ function createCard(car, isFirstCard) {
   newCarCard.classList.add("card2");
   newCarCard.classList.add("behind");
   swipe.appendChild(newCarCard);
-  carID++;
+  swipeCarID++;
   createProfile(car, true);
 }
 
@@ -137,14 +140,14 @@ function createProfile(car, hide) {
 const sendRating = async (status) => {
   try {
     const fd = new FormData();
-    const inFrontCarID = carID - 2;
+    const inFrontCarID = swipeCarID - 2;
     if (status === true) {
       fd.append("status", 1); //status
     } else {
       fd.append("status", 0); //status
     }
     fd.append("CarID", inFrontCarID); //inFrontCarID
-    fd.append("UserID", 6);
+    fd.append("UserID", loggedInUser);
 
     const fetchOptions = {
       method: "POST",
@@ -193,14 +196,39 @@ const getLoggedInUser = async () => {
     const response = await fetch(url + "/getUserInfo");
     const loggedInUser = await response.json();
     getLastViewed(loggedInUser);
+    getLoggedInUserID(loggedInUser);
   } catch (e) {
     console.log(e.message);
   }
 };
 function getLastViewed(user) {
-  console.log(user.LastViewed);
-  carID = parseInt(LastViewed);
+  lastViewed = parseInt(user[0].LastViewed);
+  swipeCarID = lastViewed;
   createStartCards();
 }
+const getLoggedInUserID = async (user) => {
+  loggedInUser = user[0].UserID;
+};
+const incrementCarID = async () => {
+  try {
+    // route to lastViewed update
+    lastViewed++;
+    const formdata = new FormData();
+    formdata.append("LastViewed", lastViewed);
+    formdata.append("UserID", loggedInUser);
+    // console.log("cid: " + lastViewed + " user: " + loggedInUser);
+    const options = {
+      method: "PUT",
+    };
+    // console.log(fetchOptions);
+    const response = await fetch(
+      url + `/car/getLW?LastViewed=${lastViewed}&UserID=${loggedInUser}`,
+      options
+    );
+    // const json = await response.json();
+  } catch (e) {
+    console.log(e.message);
+  }
+};
 getLoggedInUser();
 // getCar();
