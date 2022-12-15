@@ -10,7 +10,8 @@ const getLikesInRow = async () => {
       FROM hon_likes
       WHERE Status = true
       GROUP BY  CarID
-      ORDER BY COUNT(Status) DESC;`
+      ORDER BY COUNT(Status) DESC
+      LIMIT 10;`
     );
     return rows;
   } catch (e) {
