@@ -39,8 +39,7 @@ router
     body("Brand").isLength({ min: 1 }).escape(),
     body("Model").isLength({ min: 1 }).escape(),
     body("Description").isLength({ min: 1 }).escape(),
-    body("UserID").isNumeric(),
-    body("id").isNumeric(),
+    body("CarID").isNumeric(),
     car_put
   );
 

@@ -1,25 +1,32 @@
 'use strict';
 
-const getUserdata = async () => {
-    let response = await fetch(`${env.baseUrl}/getUserInfo`)
-    let users = await response.json()
-    console.log(users)
+fetch(`${env.baseUrl}/user`)
+    .then(response => response.json())
+    .then(data => {
+        //console.log(data);
+        const email = data[0].email;
+        const user = data[0].Username;
+        const id = data[0].UserID;
 
-    const email = users[0].email;
-    const user = users[0].Username;
-    const imageID = users[0].Image;
-    console.log(email);
-    console.log(user);
-    console.log(imageID);
+        document.getElementById("nimi").innerHTML = user;
+        document.getElementById("email").innerHTML = email;
+        document.querySelector('input[name="UserID"]').value = id;
 
-    document.getElementById("nimi").innerHTML = user;
-    document.getElementById("email").innerHTML = email;
+        const getImg = `http://localhost:3000/getUsers/${id}`;
 
-    // Tämä linkki pitää vaihtaa sitten serverin osoitteeseen!
-    const url = "https://users.metropolia.fi/~adamah/images/" + imageID;
-    console.log(url);
-    document.getElementById('pic').src = url;
+        fetch(getImg)
+            .then(response => response.json())
+            .then(datas => {
 
-}
+                const imgID = datas[0].Image;
 
-getUserdata();
+                // Tämä linkki pitää vaihtaa sitten serverin osoitteeseen!
+                const url2 = "https://users.metropolia.fi/~adamah/images/" + imgID;
+                document.getElementById('pic').src = url2;
+
+
+            });
+    });
+///////////////////////////////////
+
+//Car Uploading through profile

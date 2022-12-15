@@ -92,23 +92,29 @@ const car_put = async (req, res, next) => {
       console.error("user_post validation", errors.array());
       return next(httpError("Invalid data", 400));
     }
+    const thumbnail = await sharp(req.file.path)
+      .resize(256, 144)
+      .png()
+      .toFile("./thumbnails/" + req.file.Image);
 
     const data = [
       req.body.Brand,
       req.body.Model,
       req.body.Description,
-      req.body.UserID,
-      req.body.id,
+      req.file.filename,
+      req.body.CarID,
     ];
 
     const result = await updateCar(data);
     if (result.affectedRows < 1) {
-      return next(httpError("No car modified", 400));
+      return next(httpError("Invalid data", 400));
     }
-
-    res.json({
-      message: "car modified",
-    });
+    if (thumbnail) {
+      res.json({
+        message: "car updated",
+        CarID: result.insertId,
+      });
+    }
   } catch (e) {
     console.error("car_put", e.message);
     next(catchError(e));
