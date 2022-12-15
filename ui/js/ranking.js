@@ -10,7 +10,7 @@ const getLikes = async () => {
         })
         return []
     }
-    console.log('Get likes', json);
+    json.sort((a, b) => b.likes - a.likes);
     return json;
 }
 
@@ -24,84 +24,90 @@ const getCar = async (id) => {
         })
         return undefined
     }
-    console.log('Get car ' + id, json);
-    return json;
-}
-
-const getUser = async (id) => {
-    const response = await fetch(`${env.baseUrl}/user/${id}`);
-    const json = await response.json()
-    if (response.status >= 400) {
-        console.error("Failed to fetch user info for " + id, {
-            status: response.status,
-            error: json,
-        })
-        return undefined
-    }
-    console.log('Get user ' + id, json);
     return json;
 }
 
 const getRankings = async () => {
-
-
-
-
-
+    const likes = await getLikes();
+    const cars = await Promise.all(likes.map(({CarID}) => getCar(CarID)));
+    return likes.map((like, i) => ({
+        likes: like.likes,
+        car: cars[i]
+    })).filter((ranking) => !!ranking.car)
 }
 
-getLikes();
-getCar(3);
-getUser(4);
+const createCarSection = (car) => {
+    const carDiv = document.createElement("div");
+    carDiv.setAttribute('class', 'car');
 
+    //image
+    // const imageElem = document.createElement("img");
+    // imageElem.src = `/${car.Image}`;
+    // profileDiv.appendChild(imageElem);
 
-const createUser = () => {
-    const listContainer = document.querySelector(".list_container");
-    const div_List_Container = document.createElement("div");
-    div_List_Container.setAttribute('class', 'list');
-    listContainer.appendChild(div_List_Container);
-    const line = document.createElement("div");
-    //line jonka sisälle laitetaan kaikki!
-    line.setAttribute('class', 'line');
-    div_List_Container.appendChild(line)
-    const user = document.createElement("div");
-    user.setAttribute('class', 'user');
-    line.appendChild(user);
-    const profile = document.createElement("div");
-    profile.setAttribute('class', 'profile');
-    user.appendChild(profile)
+    const nameH3 = document.createElement("h3");
+    nameH3.setAttribute('class', 'name');
+    nameH3.innerText = `${car.Brand} ${car.Model}`
+    carDiv.appendChild(nameH3);
 
-    //profile image
-    const image = document.createElement("img");
-    image.src = userdata[0].image;
+    const usernameDiv = document.createElement("div");
+    usernameDiv.setAttribute('class', 'username');
+    usernameDiv.innerText = car.Username;
+    carDiv.appendChild(usernameDiv);
 
-    profile.appendChild(image);
-    const details = document.createElement("div");
-    profile.setAttribute('class', 'details');
+    return carDiv;
+}
 
-    //username
-    const username = document.createElement("h3");
-    username.innerText = userdata[1].Brand;
-    username.setAttribute('class', 'username');
-    details.appendChild(username);
-    user.appendChild(details);
+const createLikesSection = (likes) => {
+    const likesDiv = document.createElement("div");
+    likesDiv.setAttribute('class', 'likes');
 
-    const likes = document.createElement("div");
-    likes.setAttribute('class', 'likes');
-    const fireicon = document.createElement("i");
-    fireicon.setAttribute('class', 'fa-solid fa-fire');
-    likes.appendChild(fireicon);
+    const fireIconI = document.createElement("i");
+    fireIconI.setAttribute('class', 'fa-solid fa-fire');
+    likesDiv.appendChild(fireIconI);
 
     // likes value
-    const likesNumber = document.createElement("h3");
+    const likesNumberDiv = document.createElement("div");
+    likesNumberDiv.setAttribute('class', 'likes-value');
+    likesNumberDiv.innerText = likes;
+    likesDiv.appendChild(likesNumberDiv);
 
-    likes.appendChild(likesNumber);
-    line.appendChild(likes);
-    const contact = document.createElement("div");
-    contact.setAttribute('class', 'contact');
-    //link to profile
-    const linkToProfile = document.createElement("a");
-
-    contact.appendChild(linkToProfile);
-    line.appendChild(contact);
+    return likesDiv;
 }
+
+const createProfileSection = (car) => {
+    const profileDiv = document.createElement("div");
+    profileDiv.setAttribute('class', 'user');
+    /*
+       const contact = document.createElement("div");
+       contact.setAttribute('class', 'contact');
+       //link to profile
+       const linkToProfile = document.createElement("a");
+
+       contact.appendChild(linkToProfile);
+       line.appendChild(contact);
+   */
+
+    return profileDiv;
+}
+
+getRankings().then((rankings) => {
+    console.log('rankings', rankings)
+
+    const listContainer = document.querySelector(".list_container");
+
+    const listDiv = document.createElement("div");
+    listDiv.setAttribute('class', 'list');
+    listContainer.appendChild(listDiv);
+
+    rankings.forEach(({likes, car}) => {
+        const lineDiv = document.createElement("div");
+        lineDiv.setAttribute('class', 'line');
+        lineDiv.appendChild(createCarSection(car));
+        lineDiv.appendChild(createLikesSection(likes));
+        // TODO: profile link?
+        // lineDiv.appendChild(createProfileSection(car));
+
+        listDiv.appendChild(lineDiv);
+    })
+})
