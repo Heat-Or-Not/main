@@ -190,7 +190,7 @@ function deleteLastCard(isLike) {
 }
 const getLoggedInUser = async () => {
   try {
-    const response = await fetch(url + "/getUserInfo");
+    const response = await fetch(env.baseUrl + "/user");
     const loggedInUser = await response.json();
     getLastViewed(loggedInUser);
   } catch (e) {

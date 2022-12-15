@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const mysql = require("mysql2");
+const dotenv = require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 const { httpError } = require("./utils/errors");
 
@@ -12,19 +14,6 @@ const likeRoute = require("./routes/likeRoute");
 const pagesRoute = require("./routes/pagesRoute")
 const userRoute = require("./routes/userRoute");
 
-const app = express();
-const dotenv = require("dotenv").config();
-const cookieParser = require("cookie-parser");
-const port = 3000;
-
-app.use(cors());
-app.use(express.static("ui"));
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static("uploads"));
-app.use("/thumbnails", express.static("thumbnails"));
-app.use(cookieParser());
-app.set("view engine", "html");
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -39,6 +28,19 @@ db.connect((err) => {
     console.log("MYSQL CONNECTED");
   }
 });
+
+const port = 3000;
+
+const app = express();
+app.use(cors());
+app.use(express.static("ui"));
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.static("uploads"));
+app.use("/thumbnails", express.static("thumbnails"));
+app.use(cookieParser());
+app.set("view engine", "html");
+
 // Define Routes
 app.use("/", pagesRoute);
 app.use("/auth",authRoute);
