@@ -43,6 +43,15 @@ const addLike = async (data) => {
       `INSERT INTO hon_likes (Status, hon_likes.CarID, hon_likes.UserID) VALUES (?, ?, ?);`,
       data
     );
+    if (rows.affectedRows >= 1) {
+      // Update user's last viewed value
+      data.shift();
+      await promisePool.execute(
+          `UPDATE hon_user set LastViewed = ? where UserID = ?;`,
+          data
+      );
+    }
+
     return rows;
   } catch (e) {
     console.error("addLike", e.message);

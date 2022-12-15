@@ -5,32 +5,33 @@ const link = document.querySelector(".link");
 
 let isSwiping = false;
 let isAtEnd = false;
-let carID; //vaihda tämä databasessa olevaan numeroon
+let userID;
+let carID;
 
-document.querySelector("#likeButton").addEventListener("click", () => {
+document.querySelector("#likeButton").addEventListener("click", async () => {
   if (isAtEnd) {
-    deleteLastCard(true);
+    await deleteLastCard(true);
     return;
   }
-  rateCar(true);
+  await rateCar(true);
   isSwiping = true;
 });
-document.querySelector("#dislikeButton").addEventListener("click", () => {
+document.querySelector("#dislikeButton").addEventListener("click", async() => {
   if (isAtEnd) {
-    deleteLastCard(false);
+    await deleteLastCard(false);
     return;
   }
-  rateCar(false);
+  await rateCar(false);
   isSwiping = true;
 });
 
-function createStartCards() {
-  getCar(true);
+const createStartCards = async () => {
+  await getCar(true);
   carID++;
-  getCar(false);
+  await getCar(false);
 }
 
-function rateCar(isLike) {
+const rateCar = async (isLike) => {
   if (isSwiping) {
     return;
   }
@@ -46,7 +47,7 @@ function rateCar(isLike) {
     }
     card1.classList.add("liked");
     card2.classList.remove("behind");
-    sendRating(true);
+    await sendRating(true);
     setTimeout(() => {
       deleteOldCard(card1, card2);
     }, 1000);
@@ -58,12 +59,13 @@ function rateCar(isLike) {
   }
   card1.classList.add("disliked");
   card2.classList.remove("behind");
-  sendRating(false);
+  await sendRating(false);
   setTimeout(() => {
     deleteOldCard(card1, card2);
   }, 1000);
 }
-function deleteOldCard(card1, card2) {
+
+const deleteOldCard = async (card1, card2) => {
   console.log("delete element");
   card1.remove();
   card2.classList.add("card1");
@@ -73,8 +75,9 @@ function deleteOldCard(card1, card2) {
     profile2.classList.remove("hidden");
     profile2.classList.add("visible");
   }
-  getCar();
+  await getCar();
 }
+
 const getCar = async (isFirst) => {
   try {
     const response = await fetch(env.baseUrl + "/car/" + carID);
@@ -90,7 +93,7 @@ const getCar = async (isFirst) => {
   }
 };
 
-function createCard(car, isFirstCard) {
+const createCard = (car, isFirstCard) => {
   const newCarCard = document.createElement("img");
   newCarCard.src = env.baseUrl + "/" + car.Image;
   newCarCard.alt = car.Brand;
@@ -108,7 +111,7 @@ function createCard(car, isFirstCard) {
   createProfile(car, true);
 }
 
-function createProfile(car, hide) {
+const createProfile = (car, hide) => {
   const profileContent = document.createElement("div");
   profileContent.classList.add("profile-content");
   if (!hide) {
@@ -143,8 +146,8 @@ const sendRating = async (status) => {
     } else {
       fd.append("status", 0); //status
     }
-    fd.append("CarID", inFrontCarID); //inFrontCarID
-    fd.append("UserID", 6);
+    fd.append("CarID", String(inFrontCarID)); //inFrontCarID
+    fd.append("UserID", userID);
 
     const fetchOptions = {
       method: "POST",
@@ -159,7 +162,7 @@ const sendRating = async (status) => {
   }
 };
 
-function deleteLastCard(isLike) {
+const deleteLastCard = async (isLike) => {
   const card1 = document.querySelector(".card1");
   const profileContent = document.querySelector(".profile-content");
 
@@ -172,7 +175,7 @@ function deleteLastCard(isLike) {
       card1.classList.remove("disliked");
     }
     card1.classList.add("liked");
-    sendRating(true);
+    await sendRating(true);
     setTimeout(() => {
       card1.remove();
     }, 1000);
@@ -183,24 +186,21 @@ function deleteLastCard(isLike) {
     card1.classList.remove("liked");
   }
   card1.classList.add("disliked");
-  sendRating(false);
+  await sendRating(false);
   setTimeout(() => {
     card1.remove();
   }, 1000);
 }
+
 const getLoggedInUser = async () => {
-  try {
     const response = await fetch(env.baseUrl + "/user");
-    const loggedInUser = await response.json();
-    getLastViewed(loggedInUser);
-  } catch (e) {
-    console.log(e.message);
-  }
+    return await response.json();
 };
-function getLastViewed(user) {
-  console.log(user.LastViewed);
-  carID = parseInt(LastViewed);
-  createStartCards();
-}
-getLoggedInUser();
-// getCar();
+
+// == Init ==
+getLoggedInUser().then(async (user) => {
+  console.log("Last viewed", user.LastViewed);
+  userID = user.UserID;
+  carID = user.LastViewed + 1;
+  await createStartCards();
+}).catch(console.error);

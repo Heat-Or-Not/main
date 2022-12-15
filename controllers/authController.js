@@ -74,7 +74,7 @@ exports.register = (req, res) => {
         let hashedPassword = await bcrypt.hash(password, 8);
         console.log(hashedPassword);
 
-        pool.query('INSERT INTO hon_user SET ?', { Username: name, email: email, Password: hashedPassword }, (err, results) => {
+        pool.query('INSERT INTO hon_user SET ?', { Username: name, email: email, Password: hashedPassword, LastViewed: 0 }, (err, results) => {
             if (err) {
                 console.log(err);
             } else {

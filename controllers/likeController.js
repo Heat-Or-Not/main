@@ -43,13 +43,13 @@ const like_post = async (req, res, next) => {
       return next(httpError("Invalid data", 400));
     }
 
-    console.log("like_post", req.body);
     const data = [
       req.body.status, // req.body.status
       req.body.CarID, // car id
-      req.body.UserID, // TODO req.user.UserID Logged in user id
+      req.body.UserID, // Logged in user id
       // ALSO REMOVE FORMDATA.append
     ];
+    console.log("like_post", data);
 
     const result = await addLike(data);
     if (result.affectedRows < 1) {
@@ -57,7 +57,7 @@ const like_post = async (req, res, next) => {
     }
     res.json({
       message: "Liked",
-      CarID: result.insertId,
+      CarID: req.body.CarID,
     });
   } catch (e) {
     console.error("like_post", e.message);

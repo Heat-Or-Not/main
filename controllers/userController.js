@@ -3,7 +3,7 @@
 const {promisify} = require("util");
 const jwt = require("jsonwebtoken");
 const pool = require("../database/db");
-const {catchError} = require("../utils/errors");
+const { catchError } = require("../utils/errors");
 
 
 const getUserDetails = (id) => new Promise((resolve, reject) => {
@@ -38,8 +38,6 @@ const getUserDetails = (id) => new Promise((resolve, reject) => {
     })
 })
 
-
-
 //Returns info of the user logged in
 exports.getLoggedInUserInfo = async (req, res, next) => {
     if (req.cookies.token) {
@@ -59,7 +57,6 @@ exports.getLoggedInUserInfo = async (req, res, next) => {
         }
     }
 }
-//
 
 exports.getUserInfo = async (req, res, next) => {
     try {
