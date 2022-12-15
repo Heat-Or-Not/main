@@ -1,6 +1,17 @@
 "use strict";
 const express = require("express");
 const multer = require("multer");
+const { body } = require("express-validator");
+
+const { httpError } = require("../utils/errors");
+const {
+  car_list_get,
+  car_get,
+  car_post,
+  car_put,
+  car_delete,
+} = require("../controllers/carController");
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.includes("image")) {
     cb(null, true);
@@ -10,14 +21,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({ dest: "uploads/", fileFilter });
-const {
-  car_list_get,
-  car_get,
-  car_post,
-  car_put,
-  car_delete,
-} = require("../controllers/carController");
-const { body } = require("express-validator");
+
 const router = express.Router();
 
 router

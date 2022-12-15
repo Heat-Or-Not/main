@@ -1,5 +1,5 @@
 "use strict";
-const url = "http://localhost:3000";
+
 const swipe = document.querySelector(".swipe");
 const link = document.querySelector(".link");
 
@@ -77,7 +77,7 @@ function deleteOldCard(card1, card2) {
 }
 const getCar = async (isFirst) => {
   try {
-    const response = await fetch(url + "/car/" + carID);
+    const response = await fetch(env.baseUrl + "/car/" + carID);
     const nextCar = await response.json();
     //console.log(nextCar);
     if (nextCar.Brand === undefined && nextCar.Model === undefined) {
@@ -92,7 +92,7 @@ const getCar = async (isFirst) => {
 
 function createCard(car, isFirstCard) {
   const newCarCard = document.createElement("img");
-  newCarCard.src = url + "/" + car.Image;
+  newCarCard.src = env.baseUrl + "/" + car.Image;
   newCarCard.alt = car.Brand;
   newCarCard.classList.add("car-image");
   if (isFirstCard) {
@@ -151,7 +151,7 @@ const sendRating = async (status) => {
       body: fd,
     };
 
-    const response = await fetch(url + "/like", fetchOptions);
+    const response = await fetch(env.baseUrl + "/like", fetchOptions);
     const json = await response.json();
     console.log(json.message);
   } catch (e) {

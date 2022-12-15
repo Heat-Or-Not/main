@@ -3,7 +3,7 @@ const pool = require("../database/db");
 const { httpError } = require("../utils/errors");
 const promisePool = pool.promise();
 
-const getLikesInRow = async (next) => {
+const getLikesInRow = async () => {
   try {
     const [rows] = await promisePool.execute(
       `SELECT CarID, COUNT(Status) AS likes
@@ -15,11 +15,11 @@ const getLikesInRow = async (next) => {
     return rows;
   } catch (e) {
     console.error("getLikesInRow", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
-const getLike = async (carID, next) => {
+const getLike = async (carID) => {
   try {
     const [rows] = await promisePool.execute(
       `SELECT COUNT(hon_likes.Status) AS likes
@@ -32,12 +32,12 @@ const getLike = async (carID, next) => {
     return rows;
   } catch (e) {
     console.error("getLike", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 //TODO getDislike
 
-const addLike = async (data, next) => {
+const addLike = async (data) => {
   try {
     const [rows] = await promisePool.execute(
       `INSERT INTO hon_likes (Status, hon_likes.CarID, hon_likes.UserID) VALUES (?, ?, ?);`,
@@ -46,7 +46,7 @@ const addLike = async (data, next) => {
     return rows;
   } catch (e) {
     console.error("addLike", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 

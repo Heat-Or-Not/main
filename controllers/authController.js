@@ -24,33 +24,29 @@ exports.login = async (req, res) => {
                 return res.redirect('/login');
             }
 
-
-            else if (!results || !await bcrypt.compare(password, results[0].Password))  {
+            if (!results || !await bcrypt.compare(password, results[0].Password))  {
                  console.log(results[0].email);
                 console.log("Wrong PAss");
                 return res.redirect('/login');
             }
 
-             else {
-                const id = results[0].UserID;
-                username = results[0].Username;
-                const token = jwt.sign({ id }, process.env.JWT_SECRET, {
-                    expiresIn: process.env.JWT_EXPIRES_IN
+            const id = results[0].UserID;
+            username = results[0].Username;
+            const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                expiresIn: process.env.JWT_EXPIRES_IN
+            });
 
-                });
+            console.log(token);
 
-                console.log(token);
-
-                const cookieOptions = {
-                    expires: new Date(
-                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-                    ),
-                    httpOnly: true
-                }
-                res.cookie('token', token, cookieOptions);
-                res.status(200).redirect("/front");
-                console.log("LOGGED IN AS = " + username) //////////////////
+            const cookieOptions = {
+                expires: new Date(
+                    Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                ),
+                httpOnly: true
             }
+            res.cookie('token', token, cookieOptions);
+            res.status(200).redirect("/front");
+            console.log("LOGGED IN AS = " + username) //////////////////
         })
     } catch (err) {
         console.log(err);
@@ -64,14 +60,15 @@ exports.register = (req, res) => {
     pool.query('SELECT email from hon_user WHERE email = ?', [email], async (err, results) => {
         if (err) {
             console.log(err);
-        } else {
-            if (results.length > 0) {
-                console.log("Sposti varattu");
-                return res.redirect('/register') ;
-            } else if (password != passwordConfirm) {
-                console.log("Passwords do not match !");
-                return res.redirect('/register') ;
-            }
+            return res.redirect('/register') ;
+        }
+        if (results.length > 0) {
+            console.log("Sposti varattu");
+            return res.redirect('/register') ;
+        }
+        if (password !== passwordConfirm) {
+            console.log("Passwords do not match !");
+            return res.redirect('/register') ;
         }
 
         let hashedPassword = await bcrypt.hash(password, 8);

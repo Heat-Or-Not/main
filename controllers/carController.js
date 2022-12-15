@@ -6,13 +6,13 @@ const {
   updateCar,
   deleteCar,
 } = require("../models/carModel");
-const { httpError } = require("../utils/errors");
+const { httpError, catchError} = require("../utils/errors");
 const { validationResult } = require("express-validator");
 const sharp = require("sharp");
 
 const car_list_get = async (req, res, next) => {
   try {
-    const cars = await getAllCars(next);
+    const cars = await getAllCars();
     if (cars.length < 1) {
       next(httpError("No cars found", 404));
       return;
@@ -20,13 +20,13 @@ const car_list_get = async (req, res, next) => {
     res.json(cars);
   } catch (e) {
     console.error("car_list_get", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
 const car_get = async (req, res, next) => {
   try {
-    const car = await getCar(req.params.id, next);
+    const car = await getCar(req.params.id);
     if (car.length < 1) {
       next(httpError("No car found", 404));
       return;
@@ -34,7 +34,7 @@ const car_get = async (req, res, next) => {
     res.json(car.pop());
   } catch (e) {
     console.error("car_get", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
@@ -47,8 +47,7 @@ const car_post = async (req, res, next) => {
       // There are errors.
       // Error messages can be returned in an array using `errors.array()`.
       console.error("car_post", errors.array());
-      next(httpError("Invalid data", 400));
-      return;
+      return next(httpError("Invalid data", 400));
     }
 
     console.log("car_post", req.body, req.file);
@@ -66,10 +65,9 @@ const car_post = async (req, res, next) => {
       req.file.filename,
     ];
 
-    const result = await addCar(data, next);
+    const result = await addCar(data);
     if (result.affectedRows < 1) {
-      next(httpError("Invalid data", 400));
-      return;
+      return next(httpError("Invalid data", 400));
     }
     if (thumbnail) {
       res.json({
@@ -79,7 +77,7 @@ const car_post = async (req, res, next) => {
     }
   } catch (e) {
     console.error("car_post", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
@@ -92,8 +90,7 @@ const car_put = async (req, res, next) => {
       // There are errors.
       // Error messages can be returned in an array using `errors.array()`.
       console.error("user_post validation", errors.array());
-      next(httpError("Invalid data", 400));
-      return;
+      return next(httpError("Invalid data", 400));
     }
 
     const data = [
@@ -104,10 +101,9 @@ const car_put = async (req, res, next) => {
       req.body.id,
     ];
 
-    const result = await updateCar(data, next);
+    const result = await updateCar(data);
     if (result.affectedRows < 1) {
-      next(httpError("No car modified", 400));
-      return;
+      return next(httpError("No car modified", 400));
     }
 
     res.json({
@@ -115,23 +111,22 @@ const car_put = async (req, res, next) => {
     });
   } catch (e) {
     console.error("car_put", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
 const car_delete = async (req, res, next) => {
   try {
-    const result = await deleteCar(req.params.id, next);
+    const result = await deleteCar(req.params.id);
     if (result.affectedRows < 1) {
-      next(httpError("No car deleted", 400));
-      return;
+      return next(httpError("No car deleted", 400));
     }
     res.json({
       message: "car deleted",
     });
   } catch (e) {
     console.error("delete", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 

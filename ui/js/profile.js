@@ -1,8 +1,7 @@
 'use strict';
 
-
-async function getUserdata() {
-    let response = await fetch('http://localhost:3000/getUserInfo')
+const getUserdata = async () => {
+    let response = await fetch(`${env.baseUrl}/getUserInfo`)
     let users = await response.json()
     console.log(users)
 
@@ -23,4 +22,4 @@ async function getUserdata() {
 
 }
 
-getUserdata()
+getUserdata();

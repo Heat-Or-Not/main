@@ -44,13 +44,5 @@ router.get('/ranking', authController.isLoggedIn, (req, res) => {
         res.sendFile("login.html", { root: './ui/' });
     }
 });
-router.get('/getUserInfo', userController.getUserInfo, (req, res) => {
-    res.sendStatus(200);
-});
-
-router.get("/getUsers/:id", userController.getUsers, (req, res) =>{
-    res.sendStatus(200);
-})
-
 
 module.exports = router;

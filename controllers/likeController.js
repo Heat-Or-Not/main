@@ -1,11 +1,11 @@
 "use strict";
 const { getLike, addLike, getLikesInRow } = require("../models/likeModel");
-const { httpError } = require("../utils/errors");
+const { httpError, catchError} = require("../utils/errors");
 const { validationResult } = require("express-validator");
 
 const like_list_get = async (req, res, next) => {
   try {
-    const likes = await getLikesInRow(next);
+    const likes = await getLikesInRow();
     if (likes.length < 1) {
       next(httpError("No likes found", 404));
       return;
@@ -13,13 +13,13 @@ const like_list_get = async (req, res, next) => {
     res.json(likes);
   } catch (e) {
     console.error("like_list_get", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
 const like_get = async (req, res, next) => {
   try {
-    const like = await getLike(req.params.id, next); // req params id sijasta user db -> lastviewed
+    const like = await getLike(req.params.id); // req params id sijasta user db -> lastviewed
     if (like.length < 1) {
       next(httpError("No likes found", 404));
       return;
@@ -27,7 +27,7 @@ const like_get = async (req, res, next) => {
     res.json(like /*.pop()*/);
   } catch (e) {
     console.error("like_get", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 
@@ -40,8 +40,7 @@ const like_post = async (req, res, next) => {
       // There are errors.
       // Error messages can be returned in an array using `errors.array()`.
       console.error("like_post", errors.array());
-      next(httpError("Invalid data", 400));
-      return;
+      return next(httpError("Invalid data", 400));
     }
 
     console.log("like_post", req.body);
@@ -52,10 +51,9 @@ const like_post = async (req, res, next) => {
       // ALSO REMOVE FORMDATA.append
     ];
 
-    const result = await addLike(data, next);
+    const result = await addLike(data);
     if (result.affectedRows < 1) {
-      next(httpError("Invalid data", 400));
-      return;
+      return next(httpError("Invalid data", 400));
     }
     res.json({
       message: "Liked",
@@ -63,7 +61,7 @@ const like_post = async (req, res, next) => {
     });
   } catch (e) {
     console.error("like_post", e.message);
-    next(httpError("Internal server error", 500));
+    next(catchError(e));
   }
 };
 

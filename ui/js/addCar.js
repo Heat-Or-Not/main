@@ -1,6 +1,4 @@
 "use strict";
-const url =
-  /*"https://users.metropolia.fi/~veetiso/Heat-or-not"*/ "http://localhost:3000"; // change url when uploading to server
 
 // select existing html elements
 const addForm = document.querySelector("#addCarForm");
@@ -17,7 +15,7 @@ addForm.addEventListener("submit", async (evt) => {
     // },
     body: fd,
   };
-  const response = await fetch(url + "/car", fetchOptions);
+  const response = await fetch(env.baseUrl + "/car", fetchOptions);
   const json = await response.json();
   console.log();
   alert(json.message);

@@ -3,10 +3,15 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const mysql = require("mysql2");
+
+const { httpError } = require("./utils/errors");
+
+const authRoute = require("./routes/authRoute")
 const carRoute = require("./routes/carRoute");
 const likeRoute = require("./routes/likeRoute");
-// const userRoute = require("./routes/userRoute");
-const { httpError } = require("./utils/errors");
+const pagesRoute = require("./routes/pagesRoute")
+const userRoute = require("./routes/userRoute");
+
 const app = express();
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
@@ -35,12 +40,11 @@ db.connect((err) => {
   }
 });
 // Define Routes
-app.use("/", require("./routes/pagesRoute"));
-app.use("/auth", require("./routes/authRoute"));
-
+app.use("/", pagesRoute);
+app.use("/auth",authRoute);
 app.use("/car", carRoute);
 app.use("/like", likeRoute);
-// app.use("/user", userRoute);
+app.use("/user", userRoute);
 
 app.use((req, res, next) => {
   const err = httpError("Not found", 404);

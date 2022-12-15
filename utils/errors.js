@@ -5,4 +5,12 @@ const httpError = (message, status) => {
   return err;
 };
 
-module.exports = { httpError };
+const catchError = (e) => {
+  if (e && e.status) {
+    // Error was already a HTTP error
+    return e;
+  }
+  return httpError("Internal server error", 500)
+}
+
+module.exports = { httpError, catchError };

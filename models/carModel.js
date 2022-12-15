@@ -3,7 +3,7 @@ const pool = require("../database/db");
 const { httpError } = require("../utils/errors");
 const promisePool = pool.promise();
 
-const getAllCars = async (next) => {
+const getAllCars = async () => {
   try {
     const [rows] =
       await promisePool.execute(`SELECT CarID, Brand, Model, Description, Image, hon_user.UserID
@@ -12,14 +12,14 @@ const getAllCars = async (next) => {
     return rows;
   } catch (e) {
     console.error("getAllCars", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
-const getCar = async (carID, next) => {
+const getCar = async (carID) => {
   try {
     const [rows] = await promisePool.execute(
-      `SELECT CarID, Brand, Model, Description, Image, hon_user.UserID as userid 
+      `SELECT CarID, Brand, Model, Description, Image, hon_user.UserID, hon_user.Username
       FROM hon_car 
       JOIN hon_user 
       ON hon_user.UserID = hon_car.UserID 
@@ -29,11 +29,11 @@ const getCar = async (carID, next) => {
     return rows;
   } catch (e) {
     console.error("getCar", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
-const addCar = async (data, next) => {
+const addCar = async (data) => {
   try {
     const [rows] = await promisePool.execute(
       `INSERT INTO hon_car (Brand, Model, Description, UserID, Image) VALUES (?, ?, ?, ?, ?);`,
@@ -42,11 +42,11 @@ const addCar = async (data, next) => {
     return rows;
   } catch (e) {
     console.error("addCar", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
-const updateCar = async (data, next) => {
+const updateCar = async (data) => {
   try {
     const [rows] = await promisePool.execute(
       `UPDATE hon_car set Brand = ?, Model = ?, Description = ?, Image = ? WHERE CarID = ?;`,
@@ -55,11 +55,11 @@ const updateCar = async (data, next) => {
     return rows;
   } catch (e) {
     console.error("updateCar", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
-const deleteCar = async (carID, next) => {
+const deleteCar = async (carID) => {
   try {
     const [rows] = await promisePool.execute(
       `DELETE FROM hon_car where CarID = ?;`,
@@ -68,7 +68,7 @@ const deleteCar = async (carID, next) => {
     return rows;
   } catch (e) {
     console.error("deleteCar", e.message);
-    next(httpError("Database error", 500));
+    throw httpError("Database error", 500);
   }
 };
 
