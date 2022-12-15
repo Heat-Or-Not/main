@@ -37,7 +37,11 @@
         </div>
         <hr />
         <div id="profile">
-          <img id="pic" onerror="this.onerror=null;this.src='images/car2.jpeg';" alt="img" />
+          <img
+            id="pic"
+            onerror="this.onerror=null;this.src='images/car2.jpeg';"
+            alt="img"
+          />
         </div>
 
         <hr />
@@ -45,10 +49,11 @@
 
         <div class="carupload">
           <form
-                  action="http://localhost:3000/car"
-                  method="post"
-                  enctype="multipart/form-data"
-                  id="carSubmit">
+            action="http://localhost:3000/car"
+            method="post"
+            enctype="multipart/form-data"
+            id="carSubmit"
+          >
             <label for="Brand">Choose a car:</label>
             <select name="Brand" id="Brand">
               <option value="volvo">Volvo</option>
@@ -58,11 +63,7 @@
               <option value="audi">Audi</option>
               <option value="bmw">BMW</option>
             </select>
-            <input
-                    type="text"
-                    name="Model"
-                    placeholder="Model"
-            />
+            <input type="text" name="Model" placeholder="Model" />
             <hr />
             <label>
               <textarea
@@ -70,17 +71,22 @@
                 cols="50"
                 name="Description"
                 placeholder="Description"
-
               ></textarea>
             </label>
 
-            <input class="test" type="text" name="UserID" id="UserID" placeholder="Your text">
+            <input
+              class="test"
+              type="text"
+              name="UserID"
+              id="UserID"
+              placeholder="Your text"
+            />
 
             <input
-                    type="file"
-                    name="car"
-                    accept="image/*"
-                    placeholder="Choose file"
+              type="file"
+              name="car"
+              accept="image/*"
+              placeholder="Choose file"
             />
             <button id="login_button" type="submit">Submit</button>
           </form>
@@ -95,7 +101,16 @@
             <a href="/ranking"><i class="fa-solid fa-star"></i></a>
           </li>
           <li class="nav-element">
-            <a href="/myprofile"><i class="fa-solid fa-user"></i></a>
+            <a href="/myprofile"
+              ><i
+                style="
+                  color: #ff0000a1;
+                  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+                "
+                class="fa-solid fa-user"
+              ></i
+            ></a>
           </li>
           <li class="nav-element">
             <a href="/auth/logout"
