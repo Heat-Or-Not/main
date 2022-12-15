@@ -13,10 +13,7 @@
       defer
     ></script>
 
-    <!--  ! -->
     <script src="js/env.js"></script>
-    <script src="js/profile.js" defer></script>
-    <script src="js/addCar.js"></script>
   </head>
   <body>
     <div class="container">
@@ -89,7 +86,8 @@
               accept="image/*"
               placeholder="Choose file"
             />
-            <button id="login_button" type="submit">Submit</button>
+            <input type="hidden" name="redirectToProfile" value="true" />
+            <button type="submit">Submit</button>
           </form>
         </div>
       </main>
@@ -121,5 +119,6 @@
         </ul>
       </nav>
     </div>
+    <script src="js/profile.js" defer></script>
   </body>
 </html>
