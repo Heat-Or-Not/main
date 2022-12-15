@@ -1,6 +1,6 @@
 "use strict";
 const { getLike, addLike, getLikesInRow } = require("../models/likeModel");
-const { httpError, catchError} = require("../utils/errors");
+const { httpError, catchError } = require("../utils/errors");
 const { validationResult } = require("express-validator");
 
 const like_list_get = async (req, res, next) => {

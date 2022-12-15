@@ -50,4 +50,8 @@ router.get('/ranking', authController.isLoggedIn, (req, res) => {
     }
 });
 
+// router.put("/updateLW/:lw/:id", userController.getLW, (req, res) => {
+//   res.sendStatus(200);
+// });
+
 module.exports = router;

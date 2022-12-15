@@ -10,6 +10,8 @@ const {
   car_post,
   car_put,
   car_delete,
+  lw_list_get,
+  lw_put,
 } = require("../controllers/carController");
 
 const fileFilter = (req, file, cb) => {
@@ -21,7 +23,6 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({ dest: "uploads/", fileFilter });
-
 const router = express.Router();
 
 router
@@ -42,6 +43,7 @@ router
     body("CarID").isNumeric(),
     car_put
   );
+router.route("/getLW").get(lw_list_get).put(lw_put);
 
 router.route("/:id").get(car_get).delete(car_delete);
 
