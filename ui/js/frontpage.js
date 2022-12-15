@@ -5,7 +5,7 @@ const link = document.querySelector(".link");
 
 let isSwiping = false;
 let isAtEnd = false;
-let carID = 1; //vaihda tämä databasessa olevaan numeroon
+let carID; //vaihda tämä databasessa olevaan numeroon
 
 document.querySelector("#likeButton").addEventListener("click", () => {
   if (isAtEnd) {
@@ -188,5 +188,19 @@ function deleteLastCard(isLike) {
     card1.remove();
   }, 1000);
 }
+const getLoggedInUser = async () => {
+  try {
+    const response = await fetch(url + "/getUserInfo");
+    const loggedInUser = await response.json();
+    getLastViewed(loggedInUser);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+function getLastViewed(user) {
+  console.log(user.LastViewed);
+  carID = parseInt(LastViewed);
+  createStartCards();
+}
+getLoggedInUser();
 // getCar();
-createStartCards();
