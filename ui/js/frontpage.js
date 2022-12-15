@@ -205,12 +205,12 @@ const getLoggedInUser = async () => {
   }
 };
 function getLastViewed(user) {
-  lastViewed = parseInt(user[0].LastViewed);
+  lastViewed = parseInt(user.LastViewed);
   swipeCarID = lastViewed;
   createStartCards();
 }
 const getLoggedInUserID = async (user) => {
-  loggedInUser = user[0].UserID;
+  loggedInUser = user.UserID;
 };
 const incrementCarID = async () => {
   try {
@@ -225,7 +225,8 @@ const incrementCarID = async () => {
     };
     // console.log(fetchOptions);
     const response = await fetch(
-      url + `/car/getLW?LastViewed=${lastViewed}&UserID=${loggedInUser}`,
+      env.baseUrl +
+        `/car/getLW?LastViewed=${lastViewed}&UserID=${loggedInUser}`,
       options
     );
     // const json = await response.json();
