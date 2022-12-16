@@ -13,7 +13,8 @@
       defer
     ></script>
 
-    <script src="js/env.js"></script>
+    <script src="js/env.js" defer></script>
+    <script src="js/rotateImg.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -24,26 +25,24 @@
         <hr />
       </header>
       <main>
-        <div class="content">
-          <div class="userinfo">
-            <div id="name">
-              <h2 id="nimi"></h2>
-
-              <h2 id="email"></h2>
+        <div class="main-container">
+          <div class="content">
+            <div class="userinfo">
+              <div id="name">
+                <h2 id="nimi"></h2>
+                <h2 id="email"></h2>
+              </div>
+            </div>
+            <div id="profile">
+              <img
+                id="pic"
+                onerror="this.onerror=null;this.src='images/car2.jpeg';"
+                alt="img"
+              />
             </div>
           </div>
-        </div>
-        <hr />
-        <div id="profile">
-          <img
-            id="pic"
-            onerror="this.onerror=null;this.src='images/car2.jpeg';"
-            alt="img"
-          />
-        </div>
-
-        <hr />
-        <h2 id="submitCar">Submit your Car</h2>
+          <hr />
+          <h2 id="submitCar">Submit your Car</h2>
 
         <div class="carupload">
           <form
@@ -73,23 +72,23 @@
               ></textarea>
             </label>
 
-            <input
-              class="test"
-              type="text"
-              name="UserID"
-              id="UserID"
-              placeholder="Your text"
-            />
-
-            <input
-              type="file"
-              name="car"
-              accept="image/*"
-              placeholder="Choose file"
-            />
-            <input type="hidden" name="redirectToProfile" value="true" />
-            <button type="submit">Submit</button>
-          </form>
+              <input
+                class="test"
+                type="text"
+                name="UserID"
+                id="UserID"
+                placeholder="Your text"
+              />
+              <input
+                type="file"
+                name="car"
+                accept="image/*"
+                placeholder="Choose file"
+              />
+              <input type="hidden" name="redirectToProfile" value="true" />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       </main>
       <nav class="nav-bar">

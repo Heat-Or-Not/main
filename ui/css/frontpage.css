@@ -5,6 +5,7 @@
 .content {
   height: 100%;
   position: relative;
+  -webkit-box-shadow: 0px 0px 19px 1px rgba(0, 0, 0, 0.5);
 }
 /*---car card-----------------------------------------------*/
 .swipe {
