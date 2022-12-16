@@ -13,7 +13,8 @@
       defer
     ></script>
 
-    <script src="js/env.js"></script>
+    <script src="js/env.js" defer></script>
+    <script src="js/rotateImg.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -24,71 +25,77 @@
         <hr />
       </header>
       <main>
-        <div class="content">
-          <div class="userinfo">
-            <div id="name">
-              <h2 id="nimi"></h2>
-
-              <h2 id="email"></h2>
+        <div class="main-container">
+          <div class="content">
+            <div class="userinfo">
+              <div id="name">
+                <h2 id="nimi"></h2>
+                <h2 id="email"></h2>
+              </div>
+            </div>
+            <div id="profile">
+              <img
+                id="pic"
+                onerror="this.onerror=null;this.src='images/car2.jpeg';"
+                alt="img"
+              />
             </div>
           </div>
-        </div>
-        <hr />
-        <div id="profile">
-          <img
-            id="pic"
-            onerror="this.onerror=null;this.src='images/car2.jpeg';"
-            alt="img"
-          />
-        </div>
+          <hr />
+          <h2 id="submitCar">Submit your Car</h2>
 
-        <hr />
-        <h2 id="submitCar">Submit your Car</h2>
+          <div class="carupload">
+            <form
+              class="carForm"
+              action="http://localhost:3000/car"
+              method="post"
+              enctype="multipart/form-data"
+              id="carSubmit"
+            >
+              <label for="Brand" style="margin-right: 15px"
+                >Choose a car:</label
+              >
+              <select style="margin-right: 15px" name="Brand" id="Brand">
+                <option value="volvo">Volvo</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+                <option value="bmw">BMW</option>
+              </select>
+              <input
+                class="model-input"
+                type="text"
+                name="Model"
+                placeholder="Model"
+              />
+              <hr />
+              <label>
+                <textarea
+                  rows="4"
+                  cols="50"
+                  name="Description"
+                  placeholder="Description"
+                ></textarea>
+              </label>
 
-        <div class="carupload">
-          <form
-            action="http://localhost:3000/car"
-            method="post"
-            enctype="multipart/form-data"
-            id="carSubmit"
-          >
-            <label for="Brand">Choose a car:</label>
-            <select name="Brand" id="Brand">
-              <option value="volvo">Volvo</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
-              <option value="bmw">BMW</option>
-            </select>
-            <input type="text" name="Model" placeholder="Model" />
-            <hr />
-            <label>
-              <textarea
-                rows="4"
-                cols="50"
-                name="Description"
-                placeholder="Description"
-              ></textarea>
-            </label>
-
-            <input
-              class="test"
-              type="text"
-              name="UserID"
-              id="UserID"
-              placeholder="Your text"
-            />
-
-            <input
-              type="file"
-              name="car"
-              accept="image/*"
-              placeholder="Choose file"
-            />
-            <input type="hidden" name="redirectToProfile" value="true" />
-            <button type="submit">Submit</button>
-          </form>
+              <input
+                class="test"
+                type="text"
+                name="UserID"
+                id="UserID"
+                placeholder="Your text"
+              />
+              <input
+                type="file"
+                name="car"
+                accept="image/*"
+                placeholder="Choose file"
+              />
+              <input type="hidden" name="redirectToProfile" value="true" />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       </main>
       <nav class="nav-bar">
