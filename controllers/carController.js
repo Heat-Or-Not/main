@@ -8,7 +8,7 @@ const {
   updateLW,
   getAllLw,
 } = require("../models/carModel");
-const { httpError, catchError} = require("../utils/errors");
+const { httpError, catchError } = require("../utils/errors");
 const { validationResult } = require("express-validator");
 const sharp = require("sharp");
 
@@ -55,7 +55,7 @@ const car_post = async (req, res, next) => {
     console.log("car_post", req.body, req.file);
 
     const thumbnail = await sharp(req.file.path)
-      .resize(256, 144)
+      .resize(500, 500)
       .png()
       .toFile("./thumbnails/" + req.file.Image);
 
@@ -73,7 +73,7 @@ const car_post = async (req, res, next) => {
     }
     if (thumbnail) {
       if (req.body.redirectToProfile) {
-        res.redirect('/myprofile');
+        res.redirect("/myprofile");
       } else {
         res.json({
           message: "car added",
