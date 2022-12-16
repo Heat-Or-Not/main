@@ -44,33 +44,43 @@
           <hr />
           <h2 id="submitCar">Submit your Car</h2>
 
-        <div class="carupload">
-          <form
-            action="http://localhost:3000/car">
-
-            method="post"
-            enctype="multipart/form-data"
-            id="carSubmit"
-          >
-            <label for="Brand">Choose a car:</label>
-            <select name="Brand" id="Brand">
-              <option value="volvo">Volvo</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
-              <option value="bmw">BMW</option>
-            </select>
-            <input type="text" name="Model" placeholder="Model" />
-            <hr />
-            <label>
-              <textarea
-                rows="4"
-                cols="50"
-                name="Description"
-                placeholder="Description"
-              ></textarea>
-            </label>
+          <div class="carupload">
+            <form
+              action="http://localhost:3000/car"
+              method="post"
+              enctype="multipart/form-data"
+              id="carSubmit"
+            >
+              <label for="Brand">Choose a car:</label>
+              <select name="Brand" id="Brand">
+                <option value="volvo">Volvo</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+                <option value="bmw">BMW</option>
+                <option value="ford">Ford</option>
+                <option value="nissan">Nissan</option>
+                <option value="opel">Opel</option>
+                <option value="skoda">Skoda</option>
+                <option value="peugeot">Peugeot</option>
+                <option value="polestar">Polestar</option>
+                <option value="renault">Renault</option>
+                <option value="subaru">Subaru</option>
+                <option value="tesla">Tesla</option>
+                <option value="porsche">Porsche</option>
+                <option value="suzuki">Suzuki</option>
+              </select>
+              <input type="text" name="Model" placeholder="Model" />
+              <hr />
+              <label>
+                <textarea
+                  rows="4"
+                  cols="50"
+                  name="Description"
+                  placeholder="Description"
+                ></textarea>
+              </label>
 
               <input
                 class="test"
