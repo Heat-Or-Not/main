@@ -44,40 +44,33 @@
           <hr />
           <h2 id="submitCar">Submit your Car</h2>
 
-          <div class="carupload">
-            <form
-              class="carForm"
-              action="http://localhost:3000/car"
-              method="post"
-              enctype="multipart/form-data"
-              id="carSubmit"
-            >
-              <label for="Brand" style="margin-right: 15px"
-                >Choose a car:</label
-              >
-              <select style="margin-right: 15px" name="Brand" id="Brand">
-                <option value="volvo">Volvo</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-                <option value="bmw">BMW</option>
-              </select>
-              <input
-                class="model-input"
-                type="text"
-                name="Model"
-                placeholder="Model"
-              />
-              <hr />
-              <label>
-                <textarea
-                  rows="4"
-                  cols="50"
-                  name="Description"
-                  placeholder="Description"
-                ></textarea>
-              </label>
+        <div class="carupload">
+          <form
+            action="http://localhost:3000/car">
+
+            method="post"
+            enctype="multipart/form-data"
+            id="carSubmit"
+          >
+            <label for="Brand">Choose a car:</label>
+            <select name="Brand" id="Brand">
+              <option value="volvo">Volvo</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="saab">Saab</option>
+              <option value="opel">Opel</option>
+              <option value="audi">Audi</option>
+              <option value="bmw">BMW</option>
+            </select>
+            <input type="text" name="Model" placeholder="Model" />
+            <hr />
+            <label>
+              <textarea
+                rows="4"
+                cols="50"
+                name="Description"
+                placeholder="Description"
+              ></textarea>
+            </label>
 
               <input
                 class="test"
