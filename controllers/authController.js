@@ -94,13 +94,11 @@ exports.register = (req, res) => {
           if (err) {
             console.log(err);
           } else {
+              console.log("User succesfully created");
               res.redirect("./login");
-              return
           }
         }
       );
-      console.log("User succesfully created");
-      res.redirect("./login");
     }
   );
 };
