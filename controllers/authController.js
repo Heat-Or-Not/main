@@ -94,7 +94,8 @@ exports.register = (req, res) => {
           if (err) {
             console.log(err);
           } else {
-            return res.sendFile(__dirname + "/login", {});
+              res.redirect("./login");
+              return
           }
         }
       );
