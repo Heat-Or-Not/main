@@ -1,9 +1,7 @@
 "use strict";
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const mysql = require("mysql2");
-const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const { httpError } = require("./utils/errors");
 
