@@ -73,7 +73,7 @@ const car_post = async (req, res, next) => {
     }
     if (thumbnail) {
       if (req.body.redirectToProfile) {
-        res.redirect("/myprofile");
+        res.redirect("./myprofile");
       } else {
         res.json({
           message: "car added",

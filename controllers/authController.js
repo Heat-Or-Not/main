@@ -12,7 +12,7 @@ exports.login = async (req, res) => {
     const { email, password, name } = req.body;
     if (!email || !password) {
       console.log("Missing email or password");
-      return res.redirect("/login");
+      return res.redirect("./login");
     }
 
     pool.query(
@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
         console.log(results);
         let sqlResult = JSON.stringify(results);
         if (!sqlResult.includes("email")) {
-          return res.redirect("/login");
+          return res.redirect("./login");
         }
 
         if (
@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
         ) {
           console.log(results[0].email);
           console.log("Wrong PAss");
-          return res.redirect("/login");
+          return res.redirect("./login");
         }
 
         const id = results[0].UserID;
@@ -49,13 +49,13 @@ exports.login = async (req, res) => {
           httpOnly: true,
         };
         res.cookie("token", token, cookieOptions);
-        res.status(200).redirect("/front");
+        res.status(200).redirect("./front");
         console.log("LOGGED IN AS = " + username); //////////////////
       }
     );
   } catch (err) {
     console.log(err);
-    return res.redirect("/login");
+    return res.redirect("./login");
   }
 };
 
@@ -142,5 +142,5 @@ exports.logout = (req, res) => {
     expires: new Date(Date.now() + 2 * 1000),
     httpOnly: true,
   });
-  res.status(200).redirect("/login");
+  res.status(200).redirect("./login");
 };
