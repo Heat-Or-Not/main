@@ -68,15 +68,15 @@ exports.register = (req, res) => {
     async (err, results) => {
       if (err) {
         console.log(err);
-        return res.redirect("/register");
+        return res.redirect("./register");
       }
       if (results.length > 0) {
         console.log("Sposti varattu");
-        return res.redirect("/register");
+        return res.redirect("./register");
       }
       if (password !== passwordConfirm) {
         console.log("Passwords do not match !");
-        return res.redirect("/register");
+        return res.redirect("./register");
       }
 
       let hashedPassword = await bcrypt.hash(password, 8);
@@ -99,7 +99,7 @@ exports.register = (req, res) => {
         }
       );
       console.log("User succesfully created");
-      res.redirect("/login");
+      res.redirect("./login");
     }
   );
 };
